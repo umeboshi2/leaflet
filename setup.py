@@ -23,7 +23,7 @@ requires = [
     'pyramid-deform',
     'trumpet>=0.1dev',
     'hubby>=0.0dev',
-    
+    'waitress',
     ]
 
 
