@@ -1,0 +1,37 @@
+#!/usr/bin/python
+import os, sys
+
+virtenv = os.environ['APPDIR'] + '/virtenv/'
+os.environ['PYTHON_EGG_CACHE'] = os.path.join(virtenv, 'lib/python2.6/site-packages')
+virtualenv = os.path.join(virtenv, 'bin/activate_this.py')
+try:
+    execfile(virtualenv, dict(__file__=virtualenv))
+except IOError:
+    pass
+#
+# IMPORTANT: Put any additional includes below this line.  If placed above this
+# line, it's possible required libraries won't be in your searchable path
+# 
+
+# the following three lines were taken from
+# the quickstart example
+here = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(here, 'leaflet'))
+config = os.path.join(here, 'leaflet', 'production.ini')
+
+import logging.config
+logging.config.fileConfig(config)
+
+from pyramid.paster import get_app
+application = get_app(config, 'main')
+
+
+
+#
+# Below for testing only
+#
+if __name__ == '__main__':
+	from wsgiref.simple_server import make_server
+	httpd = make_server('localhost', 8051, application)
+	# Wait for a single request, serve it and quit.
+	httpd.handle_request()
