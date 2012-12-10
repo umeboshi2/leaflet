@@ -21,7 +21,7 @@ requires = [
     'WTForms',
     'deform',  # depends on colander and peppercorn
     'pyramid-deform',
-    'trumpet>=0.1dev', # pull from github
+    'trumpet>=0.1.1dev', # pull from github
     'hubby>=0.0dev',   # pull from github
     'waitress',
     ]
@@ -35,7 +35,7 @@ setup(name='leaflet',
       url='http://www.python.org/sigs/distutils-sig/',
       install_requires=requires,
       dependency_links=[
-        'https://github.com/umeboshi2/trumpet/archive/master.tar.gz#egg=trumpet-0.1dev',
+        'https://github.com/umeboshi2/trumpet/archive/master.tar.gz#egg=trumpet-0.1.1dev',
         'https://github.com/umeboshi2/hubby/archive/master.tar.gz#egg=hubby-0.0dev',
         ],
       )
