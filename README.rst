@@ -1,4 +1,4 @@
 leaflet
 =======
 
-Demonstration of both trumpet and hubby together
+Demonstration of both trumpet and hubby together on openshift
