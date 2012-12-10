@@ -33,3 +33,12 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# emacs
+*~
+\#*#
+.#*
+
+# my development cruft
+.sass-cache
+demo.sqlite
