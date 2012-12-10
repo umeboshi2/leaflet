@@ -38,4 +38,7 @@ setup(name='leaflet',
         'https://github.com/umeboshi2/trumpet/archive/master.tar.gz#egg=trumpet-0.1dev',
         'https://github.com/umeboshi2/hubby/archive/master.tar.gz#egg=hubby-0.0dev',
         ],
+      )
+
+      
       
