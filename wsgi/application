@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import os, sys
 import os
 
 virtenv = os.environ['APPDIR'] + '/virtenv/'
@@ -12,6 +13,19 @@ except IOError:
 # IMPORTANT: Put any additional includes below this line.  If placed above this
 # line, it's possible required libraries won't be in your searchable path
 # 
+
+# the following three lines were taken from
+# the quickstart example
+here = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(here, 'leaflet'))
+config = os.path.join(here, 'leaflet', 'production.ini')
+
+import logging.config
+logging.config.fileConfig(config)
+
+from pyramid.paster import get_app
+application = get_app(config, 'main')
+
 
 def application(environ, start_response):
 
