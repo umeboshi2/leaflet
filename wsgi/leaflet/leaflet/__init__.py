@@ -3,10 +3,8 @@ import os
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 
-from .models import (
-    DBSession,
-    Base,
-    )
+from trumpet.models.base import DBSession, Base
+
 
 dbhost = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
 dbport = os.environ['OPENSHIFT_POSTGRESQL_DB_PORT']
@@ -24,6 +22,7 @@ def main(global_config, **settings):
     engine = engine_from_config(dbsettings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
+    Base.metadata.create_all(engine)
     config = Configurator(settings=settings)
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
