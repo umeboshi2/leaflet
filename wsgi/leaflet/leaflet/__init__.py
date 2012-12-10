@@ -2,6 +2,9 @@ import os
 
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
+from pyramid_beaker import session_factory_from_settings
+
+from trumpet.security import authn_policy, authz_policy
 
 from trumpet.models.base import DBSession, Base
 from trumpet.models.usergroup import populate
@@ -15,7 +18,6 @@ from trumpet.config.wiki import configure_wiki
 from trumpet.config.rssviewer import configure_rssviewer
 from trumpet.config.login import configure_login
 
-from trumpet.security import authn_policy, authz_policy
 
 dbhost = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
 dbport = os.environ['OPENSHIFT_POSTGRESQL_DB_PORT']
@@ -37,7 +39,16 @@ def main(global_config, **settings):
     initialize_sql(engine, [populate,
                             populate_wiki,
                             populate_feeds])
-    config = Configurator(settings=settings)
+    session_factory = session_factory_from_settings(settings)
+    root_factory = 'trumpet.resources.RootGroupFactory'
+    request_factory = 'trumpet.request.AlchemyRequest'
+    config = Configurator(settings=settings,
+                          root_factory=root_factory,
+                          request_factory=request_factory,
+                          authentication_policy=authn_policy,
+                          authorization_policy=authz_policy,
+                          session_factory=session_factory
+                          )
     configure_static(config)
     configure_base_layout(config)
     
