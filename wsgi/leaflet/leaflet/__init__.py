@@ -60,7 +60,9 @@ def main(global_config, **settings):
                     layout='base')
 
     configure_login(config)
-    
+    configure_rssviewer(config, '/rssviewer')
+    configure_wiki(config, '/wiki')
+
     return config.make_wsgi_app()
 
 
