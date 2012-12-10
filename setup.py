@@ -21,8 +21,8 @@ requires = [
     'WTForms',
     'deform',  # depends on colander and peppercorn
     'pyramid-deform',
-    'trumpet>=0.1dev',
-    'hubby>=0.0dev',
+    'trumpet>=0.1dev', # pull from github
+    'hubby>=0.0dev',   # pull from github
     'waitress',
     ]
 
