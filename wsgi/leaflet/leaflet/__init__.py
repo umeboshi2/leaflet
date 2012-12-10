@@ -58,5 +58,9 @@ def main(global_config, **settings):
                     route_name='home',
                     renderer=basetemplate,
                     layout='base')
+
+    configure_login(config)
+    
     return config.make_wsgi_app()
+
 
