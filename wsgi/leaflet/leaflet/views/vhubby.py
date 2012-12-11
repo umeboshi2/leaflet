@@ -78,7 +78,9 @@ def prepare_main_data(request):
 class MainViewer(BaseViewer):
     def __init__(self, request):
         BaseViewer.__init__(self, request)
-        self.context = request.matchdict['context']
+        self.context = None
+        if 'context' in self.request.matchdict:
+            self.context = self.request.matchdict['context']
         prepare_main_data(self.request)
         self.dbsession = self.request.db
         self.manager = ModelManager(self.dbsession)

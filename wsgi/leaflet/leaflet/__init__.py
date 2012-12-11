@@ -67,10 +67,14 @@ def main(global_config, **settings):
     configure_wiki(config, '/wiki')
 
     config.add_route('hubby', '/hubby')
-    config.add_view('leaflet.views.vhubby.MainViewer',
-                    route_name='hubby',
-                    renderer=basetemplate,
-                    layout='base')
+    config.add_route('hubby_context', '/hubby/{context}/{id}')
+    config.add_route('hubby_collect', '/hubby/collect/{object}/{id}')
+    for route in ['hubby', 'hubby_context']:
+        config.add_view('leaflet.views.vhubby.MainViewer',
+                        route_name=route,
+                        renderer=basetemplate,
+                        layout='base')
+
     
     return config.make_wsgi_app()
 
