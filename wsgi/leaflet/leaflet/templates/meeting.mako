@@ -8,10 +8,7 @@
 %for mitem in meeting.meeting_items:
     <li class="hubby-meeting-item">
       %if mitem.type != section:
-          <% section = mitem.type
-	     if section is None:
-                 section = "unknown"
-          %>
+         <% section = mitem.type or "unknown" %>
 	  <h3>${mitem.type.capitalize()} Agenda</h3><br/>
       %endif
       <b>${mitem.item.file_id}: ${mitem.item.name}</b><br/>
