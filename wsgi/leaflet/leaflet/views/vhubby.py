@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from mako.template import Template
 
 
 import feedparser
@@ -52,6 +53,18 @@ item_template ="""
 <hr>
 <p>%(title)s</p>
 """
+
+MEETING_TEMPLATE = """
+<div class="hubby-meeting">
+<p>Meeting for ${str(meeting.date)} Department: ${meeting.dept.name}.</p>
+<ul>
+%for mitem in meeting.meeting_items:
+    <li>${mitem.item.name}</li>
+%endfor
+</ul>
+</div>
+"""
+MeetingTemplate = Template(MEETING_TEMPLATE)
 
 def make_item_row(item):
     cells = []
@@ -108,7 +121,7 @@ class MainViewer(BaseViewer):
         # make dispatch table
         self._cntxt_meth = dict(rssmeetings=self.view_rss_meetings,
                                 dbmeetings=self.view_db_meetings,
-                                viewmeeting=self.view_meeting,
+                                viewmeeting=self.view_meeting_better,
                                 viewdepts=self.view_departments,
                                 viewpeople=self.view_people,
                                 viewmeetingitemlist=self.view_meeting_item_list,
@@ -215,8 +228,20 @@ class MainViewer(BaseViewer):
         view = '<a href="%s">view items</a><br/>' % url
         content = '\n'.join([msg, table, update, view])
         self.layout.content = content
-        
 
+    def view_meeting_better(self):
+        id = self.request.matchdict['id']
+        session = self.dbsession
+        meeting = session.query(Meeting).get(id)
+        if meeting is None:
+            self.layout.content = "<b>Meeting not found!!!</b>"
+            return
+        self.layout.header = "View Meeting"
+        self.layout.subheader = meeting.title
+        self.layout.content = MeetingTemplate.render(meeting)
+
+            
+        
     def _update_department(self, dept):
         id, guid, name = dept
         sess = self.dbsession
