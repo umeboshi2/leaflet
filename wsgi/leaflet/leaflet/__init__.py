@@ -36,6 +36,7 @@ def main(global_config, **settings):
     if 'OPENSHIFT_POSTGRESQL_DB_HOST' in os.environ:
         settings['sqlalchemy.url'] = get_dburl()
     engine = engine_from_config(settings, 'sqlalchemy.')
+    settings['db.sessionmaker'] = DBSession
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     Base.metadata.create_all(engine)
