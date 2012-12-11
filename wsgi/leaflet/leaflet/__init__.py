@@ -67,7 +67,7 @@ def main(global_config, **settings):
     configure_wiki(config, '/wiki')
 
     config.add_route('hubby', '/hubby')
-    config.add_view('leaflet.views.hubby.MainViewer',
+    config.add_view('leaflet.views.vhubby.MainViewer',
                     route_name='hubby',
                     renderer=basetemplate,
                     layout='base')
