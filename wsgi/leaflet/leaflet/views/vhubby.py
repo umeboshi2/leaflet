@@ -240,8 +240,8 @@ class MainViewer(BaseViewer):
         self.layout.header = "View Meeting"
         self.layout.subheader = meeting.title
         env = dict(meeting=meeting)
-        content = render_to_response('templates/meeting.mako', env)
-        self.layout.content = content
+        template = 'leaflet:templates/meeting.mako'
+        self.layout.content = render_to_response(template, env)
             
         
     def _update_department(self, dept):
