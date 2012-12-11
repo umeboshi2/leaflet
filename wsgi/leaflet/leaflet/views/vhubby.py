@@ -120,7 +120,7 @@ class MainViewer(BaseViewer):
             self._cntxt_meth[self.context]()
         else:
             msg = 'Undefined Context: %s' % self.context
-            self.page_data['content'] = '<b>%s</b>' % msg
+            self.layout.content = '<b>%s</b>' % msg
 
     def _get_all_rss_entries(self):
         q = self.dbsession.query(Feed).filter_by(name='legistar all years')
@@ -156,7 +156,7 @@ class MainViewer(BaseViewer):
             items.append(item)
         content = '<p>There are %d entries</p>' % len(entries)
         ul = '<ul>%s</ul>' % '\n'.join(items)
-        self.page_data['content'] = '%s\n%s' % (content, ul)
+        self.layout.content = '%s\n%s' % (content, ul)
         
 
     def view_db_meetings(self):
@@ -173,7 +173,7 @@ class MainViewer(BaseViewer):
             items.append(item)            
         content = '<p>There are %d entries</p>' % len(meetings)
         ul = '<ul>%s</ul>' % '\n'.join(items)
-        self.page_data['content'] = '%s\n%s' % (content, ul)
+        self.layout.content = '%s\n%s' % (content, ul)
 
     def _collect_meeting_info(self, id):
         collector = MainCollector()
@@ -214,7 +214,7 @@ class MainViewer(BaseViewer):
         url = self.url(context='viewmeetingitemlist', id=meeting.id)
         view = '<a href="%s">view items</a><br/>' % url
         content = '\n'.join([msg, table, update, view])
-        self.page_data['content'] = content
+        self.layout.content = content
         
 
     def _update_department(self, dept):
@@ -256,7 +256,7 @@ class MainViewer(BaseViewer):
             item = '<li><a href="%s">%s</a></li>' % (url, dept.name)
             dept_links.append(item)
         content = '<ul>%s</ul>' % '\n'.join(dept_links)
-        self.page_data['content'] = content
+        self.layout.content = content
         
     def _update_people(self, people):
         s = self.dbsession
@@ -289,7 +289,7 @@ class MainViewer(BaseViewer):
             item = '<li>%s</li>' % anchor
             plist.append(item)
         ul = '<ul>%s</ul>' % '\n'.join(plist)
-        self.page_data['content'] = ul
+        self.layout.content = ul
 
     def view_person(self):
         pass
@@ -307,7 +307,7 @@ class MainViewer(BaseViewer):
         for item in items:
             rows.append(make_item_row(item))
         table = '<table>%s</table>' % '\n'.join(rows)
-        self.page_data['content'] = table
+        self.layout.content = table
         
         
     
