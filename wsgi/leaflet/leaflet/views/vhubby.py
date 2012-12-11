@@ -9,7 +9,7 @@ from formencode.htmlgen import html
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy import desc
 
-from pyramid.renderers import render_to_response
+from pyramid.renderers import render
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from pyramid.security import authenticated_userid
 
@@ -241,8 +241,9 @@ class MainViewer(BaseViewer):
         self.layout.subheader = meeting.title
         env = dict(meeting=meeting)
         template = 'leaflet:templates/meeting.mako'
-        self.layout.content = render_to_response(template, env)
-            
+        self.layout.content = render(template, env, request=self.request)
+                                                 
+    
         
     def _update_department(self, dept):
         id, guid, name = dept
