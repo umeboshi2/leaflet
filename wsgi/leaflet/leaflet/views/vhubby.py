@@ -30,9 +30,6 @@ from hubby.manager import ModelManager
 
 
 
-from leaflet.views.base import base_data
-from leaflet.views.base import BaseViewer
-from leaflet.views.menus import BaseMenu
 
 NUMBER_OF_DEPARTMENTS = 10
 
@@ -69,19 +66,6 @@ def make_item_roworig(item):
         cells += '<td>%s</td>' % item[key]
     return '<tr>%s</tr>' % ''.join(cells)
 
-def main_data(request):
-    data = base_data(request)
-    maindata = dict(
-        title='Hubby Page',
-        keywords='',
-        description='',
-        header="Hubby Page",
-        subheader="",
-        content='',
-        footer=str(request.params)
-        )
-    data.update(maindata)
-    return data
 
 def prepare_main_data(request):
     layout = request.layout_manager.layout
