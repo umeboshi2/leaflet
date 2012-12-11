@@ -20,8 +20,8 @@ from trumpet.views.base import BaseViewer
 from hubby.legistar import legistar_host
 from hubby.database import Meeting, Department, Person
 from hubby.util import legistar_id_guid
-from hubby.collector import MainCollector
-from hubby.collector import PickleCollector
+from hubby.collector.main import MainCollector
+from hubby.collector.main import PickleCollector
 
 from hubby.manager import ModelManager
 
