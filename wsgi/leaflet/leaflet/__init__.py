@@ -19,20 +19,23 @@ from trumpet.config.rssviewer import configure_rssviewer
 from trumpet.config.login import configure_login
 
 
-dbhost = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
-dbport = os.environ['OPENSHIFT_POSTGRESQL_DB_PORT']
-dbuser = os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME']
-dbpass = os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD']
-
-
-dburl = "postgresql://%s:%s@%s:%s/leaflet"
-dburl = dburl % (dbuser, dbpass, dbhost, dbport)
+def get_dburl():
+    dbhost = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
+    dbport = os.environ['OPENSHIFT_POSTGRESQL_DB_PORT']
+    dbuser = os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME']
+    dbpass = os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD']
+    #dbprefix = os.environ['OPENSHIFT_POSTGRESQL_DB_URL']
+    #dbuser = '%s/leaflet' % dbprefix
+    dburl = "postgresql://%s:%s@%s:%s/leaflet"
+    dburl = dburl % (dbuser, dbpass, dbhost, dbport)
+    return dburl
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    dbsettings = {'sqlalchemy.url': dburl}
-    engine = engine_from_config(dbsettings, 'sqlalchemy.')
+    if 'OPENSHIFT_POSTGRESQL_DB_HOST' in os.environ:
+        settings['sqlalchemy.url'] = get_dburl()
+    engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     Base.metadata.create_all(engine)
@@ -63,6 +66,13 @@ def main(global_config, **settings):
     configure_rssviewer(config, '/rssviewer')
     configure_wiki(config, '/wiki')
 
+    config.add_route('hubby', '/hubby')
+    config.add_view('leaflet.views.hubby.MainViewer',
+                    route_name='hubby',
+                    renderer=basetemplate,
+                    layout='base')
+    
     return config.make_wsgi_app()
+
 
 
