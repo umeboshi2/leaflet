@@ -238,7 +238,7 @@ class MainViewer(BaseViewer):
             return
         self.layout.header = "View Meeting"
         self.layout.subheader = meeting.title
-        self.layout.content = MeetingTemplate.render(meeting)
+        self.layout.content = MeetingTemplate.render(meeting=meeting)
 
             
         
