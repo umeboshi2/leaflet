@@ -100,14 +100,9 @@ class MainViewer(BaseViewer):
         self.manager = ModelManager(self.dbsession)
         # make left menu
         entries = []
-        url = self.url(context='rssmeetings', id=None)
-        entries.append(('RSS Meetings', url))
         url = self.url(context='dbmeetings', id=None)
-        entries.append(('DB Meetings', url))
+        entries.append(('Meetings', url))
         url = self.url(context='items', id=None)
-        entries.append(('Items', url))
-        url = self.url(context='update', id=None)
-        entries.append(('Update', url))
         url = self.url(context='viewdepts', id=None)
         entries.append(('View Departments', url))
         url = self.url(context='viewpeople', id=None)
@@ -124,10 +119,8 @@ class MainViewer(BaseViewer):
                                 dbmeetings=self.view_db_meetings,
                                 viewmeeting=self.view_meeting_better,
                                 viewdepts=self.view_departments,
-                                viewpeople=self.view_people,
-                                viewmeetingitemlist=self.view_meeting_item_list,
-                                foo='bar')
-        
+                                viewpeople=self.view_people)
+                
         
         # dispatch context request
         if self.context in self._cntxt_meth:
@@ -321,21 +314,4 @@ class MainViewer(BaseViewer):
 
     def view_person(self):
         pass
-    
-    def view_meeting_item_list(self):
-        id = self.request.matchdict['id']
-        query = self.dbsession.query(Meeting).filter_by(id=id)
-        meeting = query.one()
-        collector = MainCollector()
-        collector.set_url(meeting.link)
-        collector.collect('meeting')
-        items = collector.result['items']
-        rows = []
-        # FIXME THIS IS FRAGILE
-        for item in items:
-            rows.append(make_item_row(item))
-        table = '<table>%s</table>' % '\n'.join(rows)
-        self.layout.content = table
-        
-        
     
