@@ -6,14 +6,16 @@
 <ul>
 %for mitem in meeting.meeting_items:
     <li class="hubby-meeting-item">
-      ${mitem.item.file_id}: ${mitem.item.name}<br/>
+      <b>${mitem.item.file_id}: ${mitem.item.name}</b><br/>
       <p>Status:  ${mitem.item.status}</p>
-      <p><style "font-size:0.8em;">${mitem.item.title}</style></p>
+      <p>${mitem.item.title}</p>
+      <!--
       <ul class="hubby-meeting-item-attachments">
 	%for att in mitem.item.attachments:
 	    <li>${att.name}</li>
 	%endfor
       </ul>
+      -->
       <hr/>
     </li>
 %endfor
