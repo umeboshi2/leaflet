@@ -38,7 +38,7 @@ setup(name='leaflet_openshift',
       entry_points={
         'fanstatic.libraries' : [
             'trumpet = trumpet.resources:library',
-            'leaflet = leaflet.resources.library',
+            'leaflet = leaflet.resources:library',
             ]
         }
       )
