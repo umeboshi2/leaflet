@@ -1,0 +1,67 @@
+// ---------------------------------------------------------------------------
+// Imports
+
+@import "base";
+@import "sassybuttons";
+@import "fonts";
+
+// Import compass/typography for horizontal menu
+@import "compass/typography/lists/horizontal-list";
+@import "compass/typography/links/unstyled-link";
+//@import "compass/typography/lists/bullets";
+//@import "blueprint/typography";
+
+/* -------------------------------------------------------*/
+/* Colors */
+
+$html-background-color: $color-cornsilk3;
+$page-background-color: $html-background-color;
+$top-bar-background-color: $color-cornsilk4;
+$top-bar-text-color: $color-cornsilk1;
+$menu-header-bg-color: $top-bar-background-color;
+$menu-header-text-color: $top-bar-text-color;
+$menu-background-color: $page-background-color;
+$menu-text-color: $page-text-color;
+$sidebar-menu-hover-color: $color-cornsilk2;
+$page-text-color: $color-gray13;
+$page-anchor-color: $color-DarkSlateGrey;
+/* -------------------------------------------------------*/
+/* Layout */
+
+
+.hubby-meeting-header {
+    background: $menu-header-bg-color;
+    color: $menu-header-text-color;
+    text-align: center;
+    font-size: 1.5em;
+}
+.hubby-meeting-item {
+    background: $color-cornsilk2;
+}
+
+.hubby-meeting-agenda-header {
+    text-align: center;
+    font-size: 1.1em;
+}
+.hubby-meeting-item-status {
+    font-family: "Play";
+    font-size: 0.9em;
+}
+
+.hubby-meeting-item-text {
+    font-size: 0.8em;
+}
+
+.hubby-meeting-item-attachment-marker {
+    @include sassy-button("simple");
+    font-size: 0.7em;
+}
+.hubby-meeting-item-action-marker {
+    @include sassy-button("simple");
+    font-size: 0.7em;
+}
+
+
+.hubby-action-text {
+    font-size: 0.6em;
+}

@@ -10,3 +10,7 @@ library = Library('leaflet', 'static')
 
 #accordion = Resource(library, 'accordion.js')
 #calendar = Resource(library, 'calendar.js')
+
+show_attachments = Resource(library, 'show_attachments.js')
+
+hubby_css = Resource(library, 'hubbycss/stylesheets/screen.css')

@@ -59,7 +59,7 @@ def main(global_config, **settings):
     
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
-    config.add_view('trumpet.views.main.MainViewer',
+    config.add_view('leaflet.views.main.MainViewer',
                     route_name='home',
                     renderer=basetemplate,
                     layout='base')
@@ -77,6 +77,17 @@ def main(global_config, **settings):
                         renderer=basetemplate,
                         layout='base')
 
+    config.add_route('hubby_json', '/hubbyjson/{context}/{id}')
+    config.add_view('leaflet.views.hubjson.MainViewer',
+                    route_name='hubby_json',
+                    renderer='json',
+                    layout='base')
+    config.add_route('hubby_jax', '/hubbyjax/{context}/{id}')
+    config.add_view('leaflet.views.hubjax.MainViewer',
+                    route_name='hubby_jax',
+                    renderer='string',
+                    layout='base')
+    
     
     return config.make_wsgi_app()
 

@@ -1,0 +1,58 @@
+// ---------------------------------------------------------------------------
+// Imports
+
+@import "susy";
+
+// ---------------------------------------------------------------------------
+// Basic Grid
+
+//$total-columns  : 12;
+//$column-width   : 4em;
+//$gutter-width   : 1em;
+//$grid-padding   : $gutter-width;
+
+// Basic Grid
+
+$total-columns  : 12;
+$column-width   : 4em;
+$gutter-width   : 1em;
+$grid-padding   : $gutter-width;
+
+$tablet: 8;
+$computer: 55em 12;
+
+
+
+$show-grid-backgrounds  : true;
+
+// Color ----------------------------------------------------------------------
+@import "colors";
+
+$dark-grey: #333333;
+$light-grey: #555555;
+$grey-hover: #bfbfbf;
+$green: #5d9610;
+$green-hover: #a5c876;
+
+$body-background-orig: #f9faf9;
+
+$dark-sea-green: #8FBC8F;
+$dark-sea-green1: #c1ffc1;
+$dark-sea-green2: #b4eeb4;
+$dark-sea-green3: #9bcd9b;
+$dark-sea-green4: #698b69;
+
+
+//$html-background-color: $color-burlywood3;
+//$page-background-color: $html-background-color;
+//$top-bar-background-color: $color-burlywood2;
+//$sidebar-menu-hover-color: $color-burlywood2;
+//$page-text-color: $color-sienna4;
+
+$html-background-color: $color-khaki3;
+$page-background-color: $html-background-color;
+$top-bar-background-color: $color-DarkOliveGreen;
+$top-bar-text-color: $color-khaki2;
+$sidebar-menu-hover-color: $color-khaki2;
+$page-text-color: $color-gray13;
+

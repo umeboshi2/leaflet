@@ -14,13 +14,19 @@
 	  <div>${mitem.item.name}</div>
 	  <p class="hubby-meeting-item-status">Status:  ${mitem.item.status}</p>
 	  <p class="hubby-meeting-item-text">${mitem.item.title}</p>
-      <!--
-      <ul class="hubby-meeting-item-attachments">
-	%for att in mitem.item.attachments:
-	    <li>${att.name}</li>
-	%endfor
-      </ul>
-      -->
+	  %if mitem.item.attachments:
+	  <div class="hubby-meeting-item-attachment-marker">Attachments</div>
+	  <ul class="hubby-meeting-item-attachments">
+	    %for att in mitem.item.attachments:
+	    <li><a href="${att.get_link()}">${att.name}</a></li>
+	    %endfor
+	  </ul>
+	  %endif
+	  %if mitem.item.actions:
+	  <div class="hubby-meeting-item-action-marker" id="${mitem.item.id}" onclick="${request.route_url('hubby_jax', context='itemactions', id=mitem.item.id)}">Actions</div>
+	  <div class="hubby-meeting-item-actions"></div>
+	  %endif
+
 	</div>
 %endfor
 </div>

@@ -27,6 +27,9 @@ from hubby.collector.main import PickleCollector
 
 from hubby.manager import ModelManager
 
+from leaflet.resources import show_attachments
+from leaflet.resources import hubby_css
+
 
 NUMBER_OF_DEPARTMENTS = 10
 
@@ -83,6 +86,7 @@ def prepare_main_data(request):
     layout.subheader = ''
     layout.content = ''
     layout.footer = str(request.params)
+    hubby_css.need()
     
 class MainViewer(BaseViewer):
     def __init__(self, request):
@@ -154,7 +158,8 @@ class MainViewer(BaseViewer):
         env = dict(meeting=meeting)
         template = 'leaflet:templates/meeting.mako'
         self.layout.content = render(template, env, request=self.request)
-
+        show_attachments.need()
+        self.layout.resources.jqueryui.need()
     
         
     def update_departments(self):
