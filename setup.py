@@ -35,6 +35,12 @@ setup(name='leaflet_openshift',
         'https://github.com/umeboshi2/trumpet/archive/master.tar.gz#egg=trumpet-0.1.1dev',
         'https://github.com/umeboshi2/hubby/archive/master.tar.gz#egg=hubby-0.0dev',
         ],
+      entry_points={
+        'fanstatic.libraries' : [
+            'trumpet = trumpet.resources:library',
+            'leaflet = leaflet.resources.library',
+            ]
+        }
       )
 
       
