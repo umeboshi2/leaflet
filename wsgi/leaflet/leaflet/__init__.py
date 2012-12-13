@@ -54,6 +54,7 @@ def main(global_config, **settings):
                           session_factory=session_factory
                           )
     configure_static(config)
+    config.include('pyramid_fanstatic')
     configure_base_layout(config)
     
     config.add_static_view('static', 'static', cache_max_age=3600)

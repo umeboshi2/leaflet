@@ -28,11 +28,6 @@ from hubby.collector.main import PickleCollector
 from hubby.manager import ModelManager
 
 
-
-
-
-
-
 NUMBER_OF_DEPARTMENTS = 10
 
 item_keys = [
@@ -112,14 +107,15 @@ class MainViewer(BaseViewer):
                            feed=self.request.matchdict['feed'])
             entries.append(('Delete Feed', url))
         header = 'Hubby Menu'
-        self.make_left_menu(header, entries)
+        self.layout.left_menu.set_new_entries(entries, header=header)
+        
 
         # make dispatch table
-        self._cntxt_meth = dict(rssmeetings=self.view_rss_meetings,
-                                dbmeetings=self.view_db_meetings,
-                                viewmeeting=self.view_meeting_better,
+        self._cntxt_meth = dict(dbmeetings=self.view_db_meetings,
+                                viewmeeting=self.view_meeting,
                                 viewdepts=self.view_departments,
-                                viewpeople=self.view_people)
+                                viewpeople=self.view_people,
+                                viewdepartment=self.view_dept_meetings)
                 
         
         # dispatch context request
@@ -129,42 +125,6 @@ class MainViewer(BaseViewer):
             msg = 'Undefined Context: %s' % self.context
             self.layout.content = '<b>%s</b>' % msg
 
-    def _get_all_rss_entries(self):
-        q = self.dbsession.query(Feed).filter_by(name='legistar all years')
-        feed = q.one()
-        q = self.dbsession.query(FeedData).filter_by(feed_id=feed.id)
-        fdata = q.order_by(desc(FeedData.retrieved)).first()
-        entries = fdata.content.entries
-        links = [e.link for e in entries]
-        q = self.dbsession.query(Feed).filter_by(name='legistar 2011')
-        feed = q.one()
-        q = self.dbsession.query(FeedData).filter_by(feed_id=feed.id)
-        fdata = q.order_by(desc(FeedData.retrieved)).first()
-        for entry in fdata.content.entries:
-            if entry.link not in links:
-                entries.append(entry)
-        return entries
-        
-    def view_rss_meetings(self):
-        entries = self._get_all_rss_entries()
-        items = []
-        for entry in entries:
-            id, guid = legistar_id_guid(entry.link)
-            query = self.dbsession.query(Meeting).filter_by(id=id)
-            try:
-                meeting = query.one()
-            except NoResultFound:
-                self.manager.add_meeting_from_rss(entry)
-            meeting = query.one()
-            url = self.url(context='viewmeeting', id=meeting.id)
-            anchor = '<a href="%s">%s</a>' % (url, meeting.title)
-            anchor += '<a href="%s">(link)</a>' % meeting.link
-            item = '<li>%s</li>' % anchor
-            items.append(item)
-        content = '<p>There are %d entries</p>' % len(entries)
-        ul = '<ul>%s</ul>' % '\n'.join(items)
-        self.layout.content = '%s\n%s' % (content, ul)
-        
 
     def view_db_meetings(self):
         query = self.dbsession.query(Meeting).order_by(desc(Meeting.date))
@@ -181,49 +141,8 @@ class MainViewer(BaseViewer):
         content = '<p>There are %d entries</p>' % len(meetings)
         ul = '<ul>%s</ul>' % '\n'.join(items)
         self.layout.content = '%s\n%s' % (content, ul)
-
-    def _collect_meeting_info(self, id):
-        collector = MainCollector()
-        session = self.dbsession
-        meeting = session.query(Meeting).filter_by(id=id).one()
-        collector.set_url(meeting.link)
-        collector.collect('meeting')
-        return collector.result
         
     def view_meeting(self):
-        id = self.request.matchdict['id']
-        collected = None
-        session = self.dbsession
-        idquery = session.query(Meeting).filter_by(id=id)
-        query = idquery.filter(Meeting.dept_id != None)
-        try:
-            meeting = query.one()
-        except NoResultFound:
-            meeting = None
-            collected = True #this is a lie
-        if collected is not None:
-            self.manager.merge_meeting_from_legistar(id)
-            meeting = query.one()
-        rows = []
-        for key in ['id', 'guid', 'date', 'time', 'link',
-                    'dept_id', 'agenda_status', 'minutes_status']:
-            label = '<td>%s:</td>' % key
-            value = '<td>%s</td>' %  getattr(meeting, key)
-            row = '<tr>%s%s</tr>' % (label, value)
-            rows.append(row)
-        msg = '<p>Meeting taken from database.</p>'
-        if collected is not None:
-            msg = '<p>Meeting collected from legistar.</p>'
-        table = '<table><tr><th>Name</th><th>Value</th></tr>\n%s</table>'
-        table = table % '\n'.join(rows)
-        url = self.url(context='updatemeetingitems', id=meeting.id)
-        update = '<a href="%s">update items</a><br/>' % url
-        url = self.url(context='viewmeetingitemlist', id=meeting.id)
-        view = '<a href="%s">view items</a><br/>' % url
-        content = '\n'.join([msg, table, update, view])
-        self.layout.content = content
-
-    def view_meeting_better(self):
         id = self.request.matchdict['id']
         session = self.dbsession
         meeting = session.query(Meeting).get(id)
@@ -235,36 +154,11 @@ class MainViewer(BaseViewer):
         env = dict(meeting=meeting)
         template = 'leaflet:templates/meeting.mako'
         self.layout.content = render(template, env, request=self.request)
-                                                 
+
     
         
-    def _update_department(self, dept):
-        id, guid, name = dept
-        sess = self.dbsession
-        try:
-            dept = sess.query(Department).filter_by(id=id).one()
-        except NoResultFound:
-            transaction.begin()
-            dept = Department(id, guid)
-            dept.name = name
-            sess.add(dept)
-            sess.flush()
-            transaction.commit()
-            return
-        dept.id = id
-        dept.guid = guid
-        dept.name = name
-        transaction.begin()
-        self.dbsession.add(dept)
-        self.dbsession.flush()
-        transaction.commit()
-
     def update_departments(self):
-        collector = MainCollector()
-        collector.collect('dept')
-        depts = collector.result
-        for dept in depts:
-            self._update_department(dept)
+        self.manager.update_departments()
         
     def view_departments(self):
         rows = self.dbsession.query(Department).all()
@@ -278,6 +172,21 @@ class MainViewer(BaseViewer):
             dept_links.append(item)
         content = '<ul>%s</ul>' % '\n'.join(dept_links)
         self.layout.content = content
+
+    def view_dept_meetings(self):
+        dept_id = self.request.matchdict['id']
+        dept = self.request.db.query(Department).get(dept_id)
+        #meetings = []
+        #for meeting in dept.meetings:
+        #    url = self.url(context='viewmeeting', id=meeting.id)
+        #    item = '<li><a href="%s">%s</a></li>' % (url, meeting.title)
+        #    meetings.append(item)
+        #content = '<ul>%s</ul>' % '\n'.join(meetings)
+        #self.layout.content = content
+        
+        env = dict(dept=dept)
+        template = 'leaflet:templates/dept_meetings.mako'
+        self.layout.content = render(template, env, request=self.request)
         
     def _update_people(self, people):
         s = self.dbsession

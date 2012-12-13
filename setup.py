@@ -24,7 +24,7 @@ requires = [
     ]
 
 
-setup(name='leaflet',
+setup(name='leaflet_openshift',
       version='0.0',
       description='OpenShift App',
       author='Joseph Rawson',

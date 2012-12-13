@@ -8,6 +8,7 @@ setup.py
 leaflet/OrderedDict.py
 leaflet/__init__.py
 leaflet/models.py
+leaflet/resources.py
 leaflet/tests.py
 leaflet.egg-info/PKG-INFO
 leaflet.egg-info/SOURCES.txt
@@ -27,6 +28,8 @@ leaflet/static/pylons.css
 leaflet/static/pyramid-small.png
 leaflet/static/pyramid.png
 leaflet/static/transparent.gif
+leaflet/templates/dept_meetings.mako
+leaflet/templates/meeting.mako
 leaflet/templates/mytemplate.pt
 leaflet/views/__init__.py
-leaflet/views/hubby.py
+leaflet/views/vhubby.py

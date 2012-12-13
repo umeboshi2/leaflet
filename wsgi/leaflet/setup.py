@@ -36,6 +36,8 @@ setup(name='leaflet',
       test_suite='leaflet',
       install_requires=requires,
       entry_points="""\
+      [fanstatic.libraries]
+      leaflet = leaflet.resources:library
       [paste.app_factory]
       main = leaflet:main
       [console_scripts]
