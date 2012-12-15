@@ -21,11 +21,14 @@ from trumpet.views.base import BaseViewer
 
 from hubby.legistar import legistar_host
 from hubby.database import Meeting, Department, Person
+from hubby.database import Tag
 from hubby.util import legistar_id_guid
 from hubby.collector.main import MainCollector
 from hubby.collector.main import PickleCollector
 
 from hubby.manager import ModelManager
+from hubby.tagger import tag_all_items
+from hubby.tagger import add_tag_names
 
 from leaflet.resources import show_attachments
 from leaflet.resources import hubby_css
@@ -106,6 +109,8 @@ class MainViewer(BaseViewer):
         entries.append(('View Departments', url))
         url = self.url(context='viewpeople', id=None)
         entries.append(('View People', url))
+        url = self.url(context='tagitems', id=None)
+        entries.append(('Tag Items', url))
         if self.context in ['viewfeed']:
             url = self.url(context='deletefeed',
                            feed=self.request.matchdict['feed'])
@@ -119,7 +124,9 @@ class MainViewer(BaseViewer):
                                 viewmeeting=self.view_meeting,
                                 viewdepts=self.view_departments,
                                 viewpeople=self.view_people,
-                                viewdepartment=self.view_dept_meetings)
+                                viewdepartment=self.view_dept_meetings,
+                                tagitems=self.view_tag_items,
+                                )
                 
         
         # dispatch context request
@@ -162,9 +169,6 @@ class MainViewer(BaseViewer):
         self.layout.resources.jqueryui.need()
     
         
-    def update_departments(self):
-        self.manager.update_departments()
-        
     def view_departments(self):
         rows = self.dbsession.query(Department).all()
         if not rows:
@@ -181,35 +185,10 @@ class MainViewer(BaseViewer):
     def view_dept_meetings(self):
         dept_id = self.request.matchdict['id']
         dept = self.request.db.query(Department).get(dept_id)
-        #meetings = []
-        #for meeting in dept.meetings:
-        #    url = self.url(context='viewmeeting', id=meeting.id)
-        #    item = '<li><a href="%s">%s</a></li>' % (url, meeting.title)
-        #    meetings.append(item)
-        #content = '<ul>%s</ul>' % '\n'.join(meetings)
-        #self.layout.content = content
-        
         env = dict(dept=dept)
         template = 'leaflet:templates/dept_meetings.mako'
         self.layout.content = render(template, env, request=self.request)
         
-    def _update_people(self, people):
-        s = self.dbsession
-        for aperson in people:
-            q = s.query(Person).filter_by(id=aperson['id'])
-            try:
-                p = q.one()
-            except NoResultFound:
-                transaction.begin()
-                p = Person()
-                for key in aperson:
-                    setattr(p, key, aperson[key])
-                s.add(p)
-                s.flush()
-                transaction.commit()
-
-    
-    
     def view_people(self):
         people = self.dbsession.query(Person).all()
         if not people:
@@ -229,3 +208,10 @@ class MainViewer(BaseViewer):
     def view_person(self):
         pass
     
+    def view_tag_items(self):
+        session = self.request.db
+        add_tag_names(session)
+        tags = session.query(Tag)
+        tag_all_items(session)
+        self.layout.content = '<b>Items have been tagged.</b>'
+        

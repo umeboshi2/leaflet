@@ -63,26 +63,28 @@
 /* line 38, ../sass/screen.scss */
 .hubby-meeting-item {
   background: #eee8cd;
+  border-bottom-style: solid;
+  border-bottom-color: #cdc8b1;
 }
 
-/* line 42, ../sass/screen.scss */
+/* line 44, ../sass/screen.scss */
 .hubby-meeting-agenda-header {
   text-align: center;
   font-size: 1.1em;
 }
 
-/* line 46, ../sass/screen.scss */
+/* line 48, ../sass/screen.scss */
 .hubby-meeting-item-status {
   font-family: "Play";
   font-size: 0.9em;
 }
 
-/* line 51, ../sass/screen.scss */
+/* line 53, ../sass/screen.scss */
 .hubby-meeting-item-text {
   font-size: 0.8em;
 }
 
-/* line 55, ../sass/screen.scss */
+/* line 57, ../sass/screen.scss */
 .hubby-meeting-item-attachment-marker {
   font-size: 0.7em;
   padding: 0.3em 1.5em;
@@ -142,7 +144,7 @@
   margin: -1px !important;
 }
 
-/* line 59, ../sass/screen.scss */
+/* line 61, ../sass/screen.scss */
 .hubby-meeting-item-action-marker {
   font-size: 0.7em;
   padding: 0.3em 1.5em;
@@ -202,7 +204,17 @@
   margin: -1px !important;
 }
 
-/* line 65, ../sass/screen.scss */
+/* line 67, ../sass/screen.scss */
 .hubby-action-text {
   font-size: 0.6em;
+}
+
+/* line 71, ../sass/screen.scss */
+.hubby-meeting-item-attachments {
+  font-size: 0.8em;
+}
+
+/* line 75, ../sass/screen.scss */
+.hubby-meeting-item-info {
+  font-size: 0.9em;
 }

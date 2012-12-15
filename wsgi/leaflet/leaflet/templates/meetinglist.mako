@@ -3,7 +3,7 @@
   <p>Department: ${meeting.dept.name}.</p>
   <p>Meeting for ${meeting.date.strftime("%A, %B %d, %Y")}.</p>
 </div>
-<div class="hubby-meeting-item-list">
+<div class="hubby-meeting-list">
 <% section = "start" %>
 %for mitem in meeting.meeting_items:
     %if mitem.type != section and mitem.type is not None:
@@ -11,10 +11,8 @@
 	<h3 class="hubby-meeting-agenda-header">${mitem.type.capitalize()} Agenda</h3>
      %endif
 	<div class="hubby-meeting-item">
-	  <div class="hubby-meeting-item-info">
 	  <div>${mitem.item.name}</div>
 	  <p class="hubby-meeting-item-status">Status:  ${mitem.item.status}</p>
-	  </div>
 	  <p class="hubby-meeting-item-text">${mitem.item.title}</p>
 	  %if mitem.item.attachments:
 	  <div class="hubby-meeting-item-attachment-marker">Attachments</div>

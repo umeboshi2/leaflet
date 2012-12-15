@@ -37,6 +37,8 @@ $page-anchor-color: $color-DarkSlateGrey;
 }
 .hubby-meeting-item {
     background: $color-cornsilk2;
+    border-bottom-style: solid;
+    border-bottom-color: $color-cornsilk3;
 }
 
 .hubby-meeting-agenda-header {
@@ -64,4 +66,12 @@ $page-anchor-color: $color-DarkSlateGrey;
 
 .hubby-action-text {
     font-size: 0.6em;
+}
+
+.hubby-meeting-item-attachments {
+    font-size: 0.8em;
+}
+
+.hubby-meeting-item-info {
+    font-size: 0.9em;
 }
