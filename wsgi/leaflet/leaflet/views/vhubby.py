@@ -22,6 +22,11 @@ from trumpet.views.base import BaseViewer
 from hubby.legistar import legistar_host
 from hubby.database import Meeting, Department, Person
 from hubby.database import Tag
+
+# we need to use relationship and use the Tag object
+# instead
+from hubby.database import ItemTag
+
 from hubby.util import legistar_id_guid
 from hubby.collector.main import MainCollector
 from hubby.collector.main import PickleCollector
@@ -111,6 +116,9 @@ class MainViewer(BaseViewer):
         entries.append(('View People', url))
         url = self.url(context='tagitems', id=None)
         entries.append(('Tag Items', url))
+        url = self.url(context='viewtags', id=None)
+        entries.append(('View Tags', url))
+
         if self.context in ['viewfeed']:
             url = self.url(context='deletefeed',
                            feed=self.request.matchdict['feed'])
@@ -126,6 +134,8 @@ class MainViewer(BaseViewer):
                                 viewpeople=self.view_people,
                                 viewdepartment=self.view_dept_meetings,
                                 tagitems=self.view_tag_items,
+                                viewtags=self.view_tags,
+                                viewtaggeditem=self.view_items_with_tag,
                                 )
                 
         
@@ -162,12 +172,15 @@ class MainViewer(BaseViewer):
             return
         self.layout.header = "View Meeting"
         self.layout.subheader = meeting.title
-        env = dict(meeting=meeting)
+        from hubby import util
+        env = dict(meeting=meeting, util=util)
         template = 'leaflet:templates/meeting.mako'
         self.layout.content = render(template, env, request=self.request)
-        show_attachments.need()
         self.layout.resources.jqueryui.need()
-    
+        show_attachments.need()
+        #self.layout.resources.cornsilk.need()
+        from trumpet.resources import cornsilk
+        cornsilk.need()
         
     def view_departments(self):
         rows = self.dbsession.query(Department).all()
@@ -214,4 +227,29 @@ class MainViewer(BaseViewer):
         tags = session.query(Tag)
         tag_all_items(session)
         self.layout.content = '<b>Items have been tagged.</b>'
+
+    def view_tags(self):
+        db = self.request.db
+        tags = db.query(Tag).all()
+        divs = []
+        for tag in tags:
+            context = 'viewtaggeditem'
+            id = tag.name
+            url = self.url(context=context, id=id)
+            anchor = '<a href="%s">%s</a>' % (url, tag.name)
+            div = '<div>%s</div>' % anchor
+            divs.append(div)
+        content = '<div>%s</div>' % '\n'.join(divs)
+        self.layout.content = content
+        
+    def view_items_with_tag(self):
+        tag = self.request.matchdict['id']
+        db = self.request.db
+        tag = db.query(Tag).get(tag)
+        env = dict(items=tag.items, db=db)
+        template = 'leaflet:templates/tagged-items.mako'
+        self.layout.resources.jqueryui.need()
+        show_attachments.need()
+        
+        self.layout.content = render(template, env, request=self.request)
         

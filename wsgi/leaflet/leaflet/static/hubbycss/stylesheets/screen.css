@@ -52,39 +52,102 @@
 /* Colors */
 /* -------------------------------------------------------*/
 /* Layout */
-/* line 32, ../sass/screen.scss */
+/* line 33, ../sass/screen.scss */
 .hubby-meeting-header {
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+  border-radius: 0.5em;
   background: #8b8878;
   color: cornsilk;
   text-align: center;
   font-size: 1.5em;
+  position: relative;
 }
 
-/* line 38, ../sass/screen.scss */
+/* line 42, ../sass/screen.scss */
 .hubby-meeting-item {
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+  border-radius: 0.5em;
   background: #eee8cd;
-  border-bottom-style: solid;
-  border-bottom-color: #cdc8b1;
+  border-style: solid;
+  border-color: #eee8cd;
+  margin: 0.1em;
+  position: relative;
 }
 
-/* line 44, ../sass/screen.scss */
+/* line 51, ../sass/screen.scss */
 .hubby-meeting-agenda-header {
   text-align: center;
   font-size: 1.1em;
 }
 
-/* line 48, ../sass/screen.scss */
-.hubby-meeting-item-status {
+/* line 56, ../sass/screen.scss */
+.hubby-meeting-header-agenda {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 0.5em;
+  margin: 0.5em;
   font-family: "Play";
-  font-size: 0.9em;
 }
 
-/* line 53, ../sass/screen.scss */
+/* line 65, ../sass/screen.scss */
+.hubby-meeting-header-minutes {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.5em;
+  margin: 0.5em;
+  font-family: "Play";
+}
+
+/* line 75, ../sass/screen.scss */
+.hubby-meeting-item-info {
+  font-size: 0.9em;
+  position: relative;
+  background: #cdc8b1;
+}
+
+/* line 81, ../sass/screen.scss */
+.hubby-meeting-item-agenda-num {
+  font-size: 0.8em;
+  font-weight: bold;
+  position: relative;
+  top: 0em;
+  left: 0em;
+}
+
+/* line 89, ../sass/screen.scss */
+.hubby-meeting-item-fileid {
+  font-size: 0.8em;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* line 97, ../sass/screen.scss */
+.hubby-meeting-item-status {
+  font-family: "Play";
+  font-size: 0.7em;
+  font-weight: bold;
+  position: absolute;
+  top: 0em;
+  width: 100%;
+  text-align: center;
+}
+
+/* line 107, ../sass/screen.scss */
 .hubby-meeting-item-text {
   font-size: 0.8em;
 }
 
-/* line 57, ../sass/screen.scss */
+/* line 111, ../sass/screen.scss */
 .hubby-meeting-item-attachment-marker {
   font-size: 0.7em;
   padding: 0.3em 1.5em;
@@ -109,6 +172,7 @@
   color: cornsilk;
   text-shadow: #44423a 0 -1px 0;
   font-size: 0.7em;
+  font-weight: bold;
 }
 /* line 15, ../../../../../../../../../../../var/lib/gems/1.9.1/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .hubby-meeting-item-attachment-marker:hover {
@@ -144,7 +208,7 @@
   margin: -1px !important;
 }
 
-/* line 61, ../sass/screen.scss */
+/* line 116, ../sass/screen.scss */
 .hubby-meeting-item-action-marker {
   font-size: 0.7em;
   padding: 0.3em 1.5em;
@@ -169,6 +233,7 @@
   color: cornsilk;
   text-shadow: #44423a 0 -1px 0;
   font-size: 0.7em;
+  font-weight: bold;
 }
 /* line 15, ../../../../../../../../../../../var/lib/gems/1.9.1/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .hubby-meeting-item-action-marker:hover {
@@ -204,17 +269,46 @@
   margin: -1px !important;
 }
 
-/* line 67, ../sass/screen.scss */
+/* line 123, ../sass/screen.scss */
 .hubby-action-text {
   font-size: 0.6em;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  border-color: #8b8878;
+  border-style: solid;
+  border-width: 1px;
 }
 
-/* line 71, ../sass/screen.scss */
+/* line 131, ../sass/screen.scss */
 .hubby-meeting-item-attachments {
   font-size: 0.8em;
+  z-index: 1;
+  position: absolute;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background: #eee8cd;
+  border-style: solid;
+  border-color: #8b8878;
+  border-width: 1px;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  padding-bottom: 0.25em;
 }
 
-/* line 75, ../sass/screen.scss */
-.hubby-meeting-item-info {
-  font-size: 0.9em;
+/* line 145, ../sass/screen.scss */
+.hubby-meeting-item-attachments-header {
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  text-align: center;
+  background: #cdc8b1;
 }
