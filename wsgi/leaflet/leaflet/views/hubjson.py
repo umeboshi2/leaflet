@@ -1,92 +1,11 @@
-from datetime import datetime, timedelta
-from mako.template import Template
-
-
-import feedparser
-
-import transaction
-from formencode.htmlgen import html
-from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy import desc
-
-from pyramid.renderers import render
-from pyramid.httpexceptions import HTTPFound, HTTPNotFound
-from pyramid.security import authenticated_userid
-
-
-from trumpet.models.rssdata import Feed, FeedData
-
 from trumpet.views.base import BaseViewer
 
-
-from hubby.legistar import legistar_host
-from hubby.database import Meeting, Department, Person
-from hubby.database import Item, Action
-
-from hubby.util import legistar_id_guid
-from hubby.collector.main import MainCollector
-from hubby.collector.main import PickleCollector
+from hubby.database import Meeting
+from hubby.database import Item
 
 from hubby.manager import ModelManager
 
-from leaflet.resources import show_attachments
 
-NUMBER_OF_DEPARTMENTS = 10
-
-item_keys = [
-    'file_id',
-    'name',
-    'result',
-    'version',
-    'title',
-    'item_page',
-    'agenda_num',
-    'video',
-    'action',
-    'type',
-    'action_details',
-    ] 
-
-item_template ="""
-<b>%(name)s</b>&nbsp;<a href="%(item_page)s">(%(file_id)s)</a>
-<hr>
-<p>%(title)s</p>
-"""
-
-MEETING_TEMPLATE = """
-<div class="hubby-meeting">
-<p>Meeting for ${str(meeting.date)} Department: ${meeting.dept.name}.</p>
-<ul>
-%for mitem in meeting.meeting_items:
-    <li>${mitem.item.name}</li>
-%endfor
-</ul>
-</div>
-"""
-MeetingTemplate = Template(MEETING_TEMPLATE)
-
-def make_item_row(item):
-    cells = []
-    page = 'http://%s/%s' % (legistar_host, item['item_page'])
-    item['item_page'] = page
-    content = item_template % item
-    return '<tr><td>%s</td></tr>' % content
-
-def make_item_roworig(item):
-    cells = []
-    for key in item_keys:
-        cells += '<td>%s</td>' % item[key]
-    return '<tr>%s</tr>' % ''.join(cells)
-
-
-def prepare_main_data(request):
-    layout = request.layout_manager.layout
-    layout.title = 'Hubby Page'
-    layout.header = 'Hubby Page'
-    layout.subheader = ''
-    layout.content = ''
-    layout.footer = str(request.params)
-    
 class MainViewer(BaseViewer):
     def __init__(self, request):
         BaseViewer.__init__(self, request)
@@ -154,16 +73,4 @@ class MainViewer(BaseViewer):
         id = self.request.matchdict['id']
         meeting = self.db.query(Meeting).get(id)
         self._exception = self.serialize_meeting(meeting)
-    
-    def get_item(self):
-        id = self.request.matchdict['id']
-        pass
-
-    def get_dept(self):
-        id = self.request.matchdict['id']
-        pass
-
-    def get_people(self):
-        id = self.request.matchdict['id']
-        pass
     

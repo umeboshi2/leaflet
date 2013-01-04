@@ -1,12 +1,5 @@
-from datetime import datetime
-
-from pyramid.httpexceptions import HTTPFound, HTTPNotFound
-from pyramid.security import authenticated_userid
-
-
-
-from trumpet.views.base import NotFound, prepare_layout
-from trumpet.views.base import BaseViewer, make_top_bar
+from trumpet.views.base import prepare_layout
+from trumpet.views.base import BaseViewer
 
 def prepare_main_layout(request):
     layout = request.layout_manager.layout

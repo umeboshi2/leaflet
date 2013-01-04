@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    //$('.hubby-meeting-item').draggable()    
+    $('.hubby-meeting-item').draggable()    
     $('.hubby-meeting-item-attachments').hide()
     $('.hubby-meeting-item-attachments').draggable()
     $('.hubby-meeting-item-info').click(function() {
