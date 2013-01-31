@@ -67,10 +67,10 @@ class MainViewer(BaseViewer):
         actions = []
         for action in item.actions:
             actions.append(self.serialize_action(action))
-        self._exception = dict(actions=actions)
+        self.response = dict(actions=actions)
     
     def get_meeting(self):
         id = self.request.matchdict['id']
         meeting = self.db.query(Meeting).get(id)
-        self._exception = self.serialize_meeting(meeting)
+        self.response = self.serialize_meeting(meeting)
     

@@ -70,13 +70,13 @@ class MainViewer(BaseViewer):
         for action in item.actions:
             env = dict(action=action)
             actions.append(render(template, env, request=self.request))
-        self._exception = '\n'.join(actions)
+        self.response = '\n'.join(actions)
         
     
     def get_meeting(self):
         id = self.request.matchdict['id']
         meeting = self.db.query(Meeting).get(id)
-        self._exception = serialize_meeting(meeting)
+        self.response = serialize_meeting(meeting)
     
 
 
@@ -109,10 +109,10 @@ class JSONViewer(BaseViewer):
         actions = []
         for action in item.actions:
             actions.append(self.serialize_action(action))
-        self._exception = dict(actions=actions)
+        self.response = dict(actions=actions)
     
     def get_meeting(self):
         id = self.request.matchdict['id']
         meeting = self.db.query(Meeting).get(id)
-        self._exception = serialize_meeting(meeting)
+        self.response = serialize_meeting(meeting)
     
