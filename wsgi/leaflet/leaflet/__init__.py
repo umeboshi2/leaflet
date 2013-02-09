@@ -10,6 +10,7 @@ from trumpet.models.base import DBSession, Base
 from trumpet.models.usergroup import populate
 from trumpet.models.wiki import populate_wiki
 from trumpet.models.rssdata import populate_feeds
+from trumpet.models.sitecontent import populate_sitetext
 from trumpet.models.base import initialize_sql
 
 from trumpet.config.base import basetemplate, configure_base_layout
@@ -42,7 +43,8 @@ def main(global_config, **settings):
     Base.metadata.create_all(engine)
     initialize_sql(engine, [populate,
                             populate_wiki,
-                            populate_feeds])
+                            populate_feeds,
+                            populate_sitetext])
     session_factory = session_factory_from_settings(settings)
     root_factory = 'trumpet.resources.RootGroupFactory'
     request_factory = 'trumpet.request.AlchemyRequest'
@@ -87,6 +89,7 @@ def main(global_config, **settings):
                     route_name='hubby_jax',
                     renderer='string',
                     layout='base')
+    config.add_route('agenda_slideshow', '/agendaslide/{item}')
     
     
     return config.make_wsgi_app()
