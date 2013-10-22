@@ -1,7 +1,0 @@
-      [fanstatic.libraries]
-      leaflet = leaflet.resources:library
-      [paste.app_factory]
-      main = leaflet:main
-      [console_scripts]
-      initialize_leaflet_db = leaflet.scripts.initializedb:main
-      
