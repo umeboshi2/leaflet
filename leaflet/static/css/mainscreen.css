@@ -1,0 +1,636 @@
+/* -------------------------------------------------------*/
+/* Base Colors */
+/* -------------------------------------------------------*/
+/* @import "page-colors" needs to be done in parent script before
+ importing this script*/
+@font-face {
+  font-family: "Play";
+  src: local("Play"), url(/fanstatic/css/fonts/Play/Play-Regular.ttf);
+}
+
+@font-face {
+  font-family: "RumRaisin";
+  src: local("RumRaisin"), url(/fanstatic/css/fonts/Rum_Raisin/RumRaisin-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Droid Sans";
+  src: local("Droid Sans"), url(/fanstatic/css/fonts/Droid_Sans/DroidSans.ttf);
+}
+
+@font-face {
+  font-family: "Droid Sans Bold";
+  src: local("Droid Sans Bold"), url(/fanstatic/css/fonts/Droid_Sans/DroidSans-Bold.ttf);
+}
+
+@font-face {
+  font-family: "Sacramento";
+  src: local("Sacramento"), url(/fanstatic/css/fonts/Sacramento/Sacramento-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Questrial";
+  src: local("Questrial"), url(/fanstatic/css/fonts/Questrial/Questrial-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: local("Nunito"), url(/fanstatic/css/fonts/Nunito/Nunito-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Rambla";
+  src: local("Rambla"), url(/fanstatic/css/fonts/Rambla/Rambla-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: local("Source Sans Pro"), url(/fanstatic/css/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Cabin";
+  src: local("Cabin"), url(/fanstatic/css/fonts/Cabin/Cabin-Regular.ttf);
+}
+
+/* -------------------------------------------------------*/
+/* @import "basecolors" needs to be done in parent script before
+ importing this script*/
+/* -----------------------------------------------------------
+/* Page Colors */
+/* -------------------------------------------------------*/
+/* -------------------------------------------------------*/
+/* Layout */
+/* line 24, ../../../sass/partials/_baselayout.scss */
+html {
+  background: darkgrey;
+}
+
+/* line 28, ../../../sass/partials/_baselayout.scss */
+.page {
+  *zoom: 1;
+  max-width: 59em;
+  _width: 59em;
+  padding-left: 2em;
+  padding-right: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(0%, rgba(100, 100, 225, 0.25)), color-stop(6.77966%, rgba(100, 100, 225, 0.25)), color-stop(6.77966%, rgba(0, 0, 0, 0)), color-stop(8.47458%, rgba(0, 0, 0, 0)), color-stop(8.47458%, rgba(100, 100, 225, 0.25)), color-stop(15.25424%, rgba(100, 100, 225, 0.25)), color-stop(15.25424%, rgba(0, 0, 0, 0)), color-stop(16.94915%, rgba(0, 0, 0, 0)), color-stop(16.94915%, rgba(100, 100, 225, 0.25)), color-stop(23.72881%, rgba(100, 100, 225, 0.25)), color-stop(23.72881%, rgba(0, 0, 0, 0)), color-stop(25.42373%, rgba(0, 0, 0, 0)), color-stop(25.42373%, rgba(100, 100, 225, 0.25)), color-stop(32.20339%, rgba(100, 100, 225, 0.25)), color-stop(32.20339%, rgba(0, 0, 0, 0)), color-stop(33.89831%, rgba(0, 0, 0, 0)), color-stop(33.89831%, rgba(100, 100, 225, 0.25)), color-stop(40.67797%, rgba(100, 100, 225, 0.25)), color-stop(40.67797%, rgba(0, 0, 0, 0)), color-stop(42.37288%, rgba(0, 0, 0, 0)), color-stop(42.37288%, rgba(100, 100, 225, 0.25)), color-stop(49.15254%, rgba(100, 100, 225, 0.25)), color-stop(49.15254%, rgba(0, 0, 0, 0)), color-stop(50.84746%, rgba(0, 0, 0, 0)), color-stop(50.84746%, rgba(100, 100, 225, 0.25)), color-stop(57.62712%, rgba(100, 100, 225, 0.25)), color-stop(57.62712%, rgba(0, 0, 0, 0)), color-stop(59.32203%, rgba(0, 0, 0, 0)), color-stop(59.32203%, rgba(100, 100, 225, 0.25)), color-stop(66.10169%, rgba(100, 100, 225, 0.25)), color-stop(66.10169%, rgba(0, 0, 0, 0)), color-stop(67.79661%, rgba(0, 0, 0, 0)), color-stop(67.79661%, rgba(100, 100, 225, 0.25)), color-stop(74.57627%, rgba(100, 100, 225, 0.25)), color-stop(74.57627%, rgba(0, 0, 0, 0)), color-stop(76.27119%, rgba(0, 0, 0, 0)), color-stop(76.27119%, rgba(100, 100, 225, 0.25)), color-stop(83.05085%, rgba(100, 100, 225, 0.25)), color-stop(83.05085%, rgba(0, 0, 0, 0)), color-stop(84.74576%, rgba(0, 0, 0, 0)), color-stop(84.74576%, rgba(100, 100, 225, 0.25)), color-stop(91.52542%, rgba(100, 100, 225, 0.25)), color-stop(91.52542%, rgba(0, 0, 0, 0)), color-stop(93.22034%, rgba(0, 0, 0, 0)), color-stop(93.22034%, rgba(100, 100, 225, 0.25)), color-stop(100.0%, rgba(100, 100, 225, 0.25)), color-stop(100.0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 6.77966%, rgba(0, 0, 0, 0) 6.77966%, rgba(0, 0, 0, 0) 8.47458%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(0, 0, 0, 0) 15.25424%, rgba(0, 0, 0, 0) 16.94915%, rgba(100, 100, 225, 0.25) 16.94915%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 32.20339%, rgba(0, 0, 0, 0) 32.20339%, rgba(0, 0, 0, 0) 33.89831%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(0, 0, 0, 0) 40.67797%, rgba(0, 0, 0, 0) 42.37288%, rgba(100, 100, 225, 0.25) 42.37288%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 57.62712%, rgba(0, 0, 0, 0) 57.62712%, rgba(0, 0, 0, 0) 59.32203%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(0, 0, 0, 0) 66.10169%, rgba(0, 0, 0, 0) 67.79661%, rgba(100, 100, 225, 0.25) 67.79661%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 83.05085%, rgba(0, 0, 0, 0) 83.05085%, rgba(0, 0, 0, 0) 84.74576%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(0, 0, 0, 0) 91.52542%, rgba(0, 0, 0, 0) 93.22034%, rgba(100, 100, 225, 0.25) 93.22034%, rgba(100, 100, 225, 0.25) 100.0%, rgba(0, 0, 0, 0) 100.0%, rgba(0, 0, 0, 0) 100%);
+  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 6.77966%, rgba(0, 0, 0, 0) 6.77966%, rgba(0, 0, 0, 0) 8.47458%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(0, 0, 0, 0) 15.25424%, rgba(0, 0, 0, 0) 16.94915%, rgba(100, 100, 225, 0.25) 16.94915%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 32.20339%, rgba(0, 0, 0, 0) 32.20339%, rgba(0, 0, 0, 0) 33.89831%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(0, 0, 0, 0) 40.67797%, rgba(0, 0, 0, 0) 42.37288%, rgba(100, 100, 225, 0.25) 42.37288%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 57.62712%, rgba(0, 0, 0, 0) 57.62712%, rgba(0, 0, 0, 0) 59.32203%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(0, 0, 0, 0) 66.10169%, rgba(0, 0, 0, 0) 67.79661%, rgba(100, 100, 225, 0.25) 67.79661%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 83.05085%, rgba(0, 0, 0, 0) 83.05085%, rgba(0, 0, 0, 0) 84.74576%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(0, 0, 0, 0) 91.52542%, rgba(0, 0, 0, 0) 93.22034%, rgba(100, 100, 225, 0.25) 93.22034%, rgba(100, 100, 225, 0.25) 100.0%, rgba(0, 0, 0, 0) 100.0%, rgba(0, 0, 0, 0) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 6.77966%, rgba(0, 0, 0, 0) 6.77966%, rgba(0, 0, 0, 0) 8.47458%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(0, 0, 0, 0) 15.25424%, rgba(0, 0, 0, 0) 16.94915%, rgba(100, 100, 225, 0.25) 16.94915%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 32.20339%, rgba(0, 0, 0, 0) 32.20339%, rgba(0, 0, 0, 0) 33.89831%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(0, 0, 0, 0) 40.67797%, rgba(0, 0, 0, 0) 42.37288%, rgba(100, 100, 225, 0.25) 42.37288%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 57.62712%, rgba(0, 0, 0, 0) 57.62712%, rgba(0, 0, 0, 0) 59.32203%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(0, 0, 0, 0) 66.10169%, rgba(0, 0, 0, 0) 67.79661%, rgba(100, 100, 225, 0.25) 67.79661%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 83.05085%, rgba(0, 0, 0, 0) 83.05085%, rgba(0, 0, 0, 0) 84.74576%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(0, 0, 0, 0) 91.52542%, rgba(0, 0, 0, 0) 93.22034%, rgba(100, 100, 225, 0.25) 93.22034%, rgba(100, 100, 225, 0.25) 100.0%, rgba(0, 0, 0, 0) 100.0%, rgba(0, 0, 0, 0) 100%);
+  background-image: linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 6.77966%, rgba(0, 0, 0, 0) 6.77966%, rgba(0, 0, 0, 0) 8.47458%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(0, 0, 0, 0) 15.25424%, rgba(0, 0, 0, 0) 16.94915%, rgba(100, 100, 225, 0.25) 16.94915%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 32.20339%, rgba(0, 0, 0, 0) 32.20339%, rgba(0, 0, 0, 0) 33.89831%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(0, 0, 0, 0) 40.67797%, rgba(0, 0, 0, 0) 42.37288%, rgba(100, 100, 225, 0.25) 42.37288%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 57.62712%, rgba(0, 0, 0, 0) 57.62712%, rgba(0, 0, 0, 0) 59.32203%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(0, 0, 0, 0) 66.10169%, rgba(0, 0, 0, 0) 67.79661%, rgba(100, 100, 225, 0.25) 67.79661%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 83.05085%, rgba(0, 0, 0, 0) 83.05085%, rgba(0, 0, 0, 0) 84.74576%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(0, 0, 0, 0) 91.52542%, rgba(0, 0, 0, 0) 93.22034%, rgba(100, 100, 225, 0.25) 93.22034%, rgba(100, 100, 225, 0.25) 100.0%, rgba(0, 0, 0, 0) 100.0%, rgba(0, 0, 0, 0) 100%);
+  background-position: left top;
+  -webkit-background-origin: content;
+  -moz-background-origin: content;
+  -ms-background-origin: content-box;
+  -o-background-origin: content-box;
+  background-origin: content-box;
+  -webkit-background-clip: content-box;
+  -moz-background-clip: content-box;
+  background-clip: content-box;
+  background: darkgrey;
+  font-family: "Source Sans Pro",sans;
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  list-style: none;
+  color: #212121;
+}
+/* line 38, ../../../../../local/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.page:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media (min-width: 39em) {
+  /* line 28, ../../../sass/partials/_baselayout.scss */
+  .page {
+    max-width: 39em;
+  }
+}
+@media (min-width: 8em) {
+  /* line 28, ../../../sass/partials/_baselayout.scss */
+  .page {
+    max-width: 59em;
+  }
+}
+/* line 6, ../../../../../local/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_unstyled-link.scss */
+.page:active, .page:focus {
+  outline: none;
+}
+/* line 11, ../../../../../local/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/lists/_bullets.scss */
+.page li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0;
+}
+/* line 36, ../../../sass/partials/_baselayout.scss */
+.page a {
+  text-decoration: none;
+  color: whitesmoke;
+}
+/* line 40, ../../../sass/partials/_baselayout.scss */
+.page a:link {
+  text-decoration: none;
+}
+/* line 43, ../../../sass/partials/_baselayout.scss */
+.page a:visited {
+  text-decoration: none;
+}
+
+/* line 53, ../../../sass/partials/_baselayout.scss */
+#top-bar {
+  background: #8f8f8f;
+  color: whitesmoke;
+  padding: 0.15em;
+  -moz-border-radius-topleft: 0.5em;
+  -webkit-border-top-left-radius: 0.5em;
+  border-top-left-radius: 0.5em;
+  -moz-border-radius-topright: 0.5em;
+  -webkit-border-top-right-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  -moz-border-radius-bottomright: 0.5em;
+  -webkit-border-bottom-right-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+}
+/* line 61, ../../../sass/partials/_baselayout.scss */
+#top-bar .horizontal-menu {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  *zoom: 1;
+  float: right;
+  margin-right: 0;
+  *margin-left: -1em;
+  display: inline;
+  font-weight: bold;
+  font-family: "Droid Sans Bold";
+}
+/* line 60, ../../../../../local/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+#top-bar .horizontal-menu li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0;
+  white-space: nowrap;
+  display: inline;
+  float: left;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+/* line 48, ../../../../../local/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+#top-bar .horizontal-menu li:first-child, #top-bar .horizontal-menu li.first {
+  padding-left: 0;
+}
+/* line 49, ../../../../../local/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+#top-bar .horizontal-menu li:last-child {
+  padding-right: 0;
+}
+/* line 50, ../../../../../local/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+#top-bar .horizontal-menu li.last {
+  padding-right: 0;
+}
+/* line 66, ../../../sass/partials/_baselayout.scss */
+#top-bar .horizontal-menu a {
+  font-size: 0.7em;
+  padding: 0.3em 1.5em;
+  color: white;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF8F8F8F', endColorstr='#FF5C5C5C');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8f8f8f), color-stop(100%, #767676));
+  background: -webkit-linear-gradient(#8f8f8f, #767676);
+  background: -moz-linear-gradient(#8f8f8f, #767676);
+  background: -o-linear-gradient(#8f8f8f, #767676);
+  background: linear-gradient(#8f8f8f, #767676);
+  -webkit-box-shadow: #b5b5b5 0 1px 0 inset;
+  -moz-box-shadow: #b5b5b5 0 1px 0 inset;
+  box-shadow: #b5b5b5 0 1px 0 inset;
+  border: 1px solid dimgrey;
+  text-shadow: #4d4d4d 0 -1px 0;
+}
+/* line 15, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+#top-bar .horizontal-menu a:hover {
+  text-decoration: none;
+}
+/* line 36, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+#top-bar .horizontal-menu a:hover {
+  background-color: dimgrey;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #828282), color-stop(100%, #696969));
+  background: -webkit-linear-gradient(#828282, #696969);
+  background: -moz-linear-gradient(#828282, #696969);
+  background: -o-linear-gradient(#828282, #696969);
+  background: linear-gradient(#828282, #696969);
+}
+/* line 39, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+#top-bar .horizontal-menu a:active {
+  -webkit-box-shadow: #616161 0 1px 2px inset;
+  -moz-box-shadow: #616161 0 1px 2px inset;
+  box-shadow: #616161 0 1px 2px inset;
+}
+/* line 6, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+#top-bar .horizontal-menu a.disabled, #top-bar .horizontal-menu a[disabled] {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6;
+  background: #767676;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* line 76, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/_sassy-buttons.sass */
+#top-bar .horizontal-menu a::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+/* line 69, ../../../sass/partials/_baselayout.scss */
+#top-bar .horizontal-menu a:hover {
+  font-size: 0.7em;
+  padding: 0.3em 1.5em;
+  color: white;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF8F8F8F', endColorstr='#FF5C5C5C');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8f8f8f), color-stop(100%, #767676));
+  background: -webkit-linear-gradient(#8f8f8f, #767676);
+  background: -moz-linear-gradient(#8f8f8f, #767676);
+  background: -o-linear-gradient(#8f8f8f, #767676);
+  background: linear-gradient(#8f8f8f, #767676);
+  -webkit-box-shadow: #b5b5b5 0 1px 0 inset;
+  -moz-box-shadow: #b5b5b5 0 1px 0 inset;
+  box-shadow: #b5b5b5 0 1px 0 inset;
+  border: 1px solid dimgrey;
+  text-shadow: #4d4d4d 0 -1px 0;
+}
+/* line 15, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+#top-bar .horizontal-menu a:hover:hover {
+  text-decoration: none;
+}
+/* line 36, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+#top-bar .horizontal-menu a:hover:hover {
+  background-color: dimgrey;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #828282), color-stop(100%, #696969));
+  background: -webkit-linear-gradient(#828282, #696969);
+  background: -moz-linear-gradient(#828282, #696969);
+  background: -o-linear-gradient(#828282, #696969);
+  background: linear-gradient(#828282, #696969);
+}
+/* line 39, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+#top-bar .horizontal-menu a:hover:active {
+  -webkit-box-shadow: #616161 0 1px 2px inset;
+  -moz-box-shadow: #616161 0 1px 2px inset;
+  box-shadow: #616161 0 1px 2px inset;
+}
+/* line 6, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+#top-bar .horizontal-menu a:hover.disabled, #top-bar .horizontal-menu a:hover[disabled] {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6;
+  background: #767676;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* line 76, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/_sassy-buttons.sass */
+#top-bar .horizontal-menu a:hover::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+/* line 73, ../../../sass/partials/_baselayout.scss */
+#top-bar .header {
+  font-family: "Rambla";
+}
+/* line 75, ../../../sass/partials/_baselayout.scss */
+#top-bar .header h1 {
+  font-size: 2.1em;
+}
+/* line 78, ../../../sass/partials/_baselayout.scss */
+#top-bar .header h2 {
+  font-size: 1.1em;
+}
+
+/* line 84, ../../../sass/partials/_baselayout.scss */
+.two-col {
+  width: 100%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+
+/* line 88, ../../../sass/partials/_baselayout.scss */
+.content {
+  width: 74.57627%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  float: right;
+  margin-right: 0;
+  *margin-left: -1em;
+  display: inline;
+  background: darkgrey;
+}
+
+/* line 94, ../../../sass/partials/_baselayout.scss */
+.sidebar {
+  /*@include background-size('cover');*/
+  width: 23.72881%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  float: left;
+  font-family: "Nunito";
+  font-size: 1.1em;
+  background: #8f8f8f;
+  text-align: left;
+  -moz-border-radius-bottomleft: 0.5em;
+  -webkit-border-bottom-left-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
+  -moz-border-radius-bottomright: 0.5em;
+  -webkit-border-bottom-right-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+}
+/* line 96, ../../../sass/partials/_baselayout.scss */
+.sidebar a {
+  color: #212121;
+}
+/* line 107, ../../../sass/partials/_baselayout.scss */
+.sidebar a:hover {
+  background: #c2c2c2;
+  border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+}
+/* line 112, ../../../sass/partials/_baselayout.scss */
+.sidebar .left-menu-header {
+  font-family: "Rambla";
+  font-size: 1.5em;
+  background: #8f8f8f;
+  color: whitesmoke;
+}
+/* line 118, ../../../sass/partials/_baselayout.scss */
+.sidebar .left-menu {
+  margin-left: 0.5em;
+}
+/* line 121, ../../../sass/partials/_baselayout.scss */
+.sidebar #sidebar-logout {
+  margin-left: 0.5em;
+}
+
+/* line 126, ../../../sass/partials/_baselayout.scss */
+.footer {
+  width: 100%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  float: right;
+  margin-right: 0;
+  *margin-left: -1em;
+  display: inline;
+  font-size: 1.2em;
+}
+
+/* line 3, ../../../sass/partials/_deform.scss */
+.deform li > input {
+  background: #c2c2c2;
+}
+/* line 6, ../../../sass/partials/_deform.scss */
+.deform li > textarea {
+  background: #c2c2c2;
+}
+/* line 9, ../../../sass/partials/_deform.scss */
+.deform li > select {
+  background: #c2c2c2;
+}
+/* line 12, ../../../sass/partials/_deform.scss */
+.deform li > button {
+  background: #c2c2c2;
+}
+/* line 15, ../../../sass/partials/_deform.scss */
+.deform li > password {
+  background: #c2c2c2;
+}
+
+/* -------------------------------------------------------*/
+/* 
+      Action Button
+*/
+/* -------------------------------------------------------*/
+/* line 13, ../../../sass/partials/_action-button.scss */
+.action-button {
+  font-size: 0.7em;
+  padding: 0.3em 1.5em;
+  color: white;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF8F8F8F', endColorstr='#FF5C5C5C');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8f8f8f), color-stop(100%, #767676));
+  background: -webkit-linear-gradient(#8f8f8f, #767676);
+  background: -moz-linear-gradient(#8f8f8f, #767676);
+  background: -o-linear-gradient(#8f8f8f, #767676);
+  background: linear-gradient(#8f8f8f, #767676);
+  -webkit-box-shadow: #b5b5b5 0 1px 0 inset;
+  -moz-box-shadow: #b5b5b5 0 1px 0 inset;
+  box-shadow: #b5b5b5 0 1px 0 inset;
+  border: 1px solid dimgrey;
+  text-shadow: #4d4d4d 0 -1px 0;
+  font-weight: bold;
+  font-family: "Droid Sans Bold";
+}
+/* line 15, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.action-button:hover {
+  text-decoration: none;
+}
+/* line 36, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.action-button:hover {
+  background-color: dimgrey;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #828282), color-stop(100%, #696969));
+  background: -webkit-linear-gradient(#828282, #696969);
+  background: -moz-linear-gradient(#828282, #696969);
+  background: -o-linear-gradient(#828282, #696969);
+  background: linear-gradient(#828282, #696969);
+}
+/* line 39, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.action-button:active {
+  -webkit-box-shadow: #616161 0 1px 2px inset;
+  -moz-box-shadow: #616161 0 1px 2px inset;
+  box-shadow: #616161 0 1px 2px inset;
+}
+/* line 6, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.action-button.disabled, .action-button[disabled] {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6;
+  background: #767676;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* line 76, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/_sassy-buttons.sass */
+.action-button::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+
+/* line 17, ../../../sass/partials/_action-button.scss */
+.action-button-submit {
+  background: #c2c2c2;
+  text-align: center;
+}
+
+/* line 22, ../../../sass/partials/_action-button.scss */
+.action-button-submit:hover {
+  background: gainsboro;
+  cursor: pointer;
+}
+
+/* remove these id's later and just use classes */
+/* line 29, ../../../sass/partials/_action-button.scss */
+#action-button-submit {
+  background: #c2c2c2;
+  text-align: center;
+}
+
+/* line 34, ../../../sass/partials/_action-button.scss */
+#action-button-submit:hover {
+  background: gainsboro;
+  cursor: pointer;
+}
+
+/*-------- Ticket Management ----------*/
+/* line 5, ../../../sass/partials/_tickets.scss */
+.ticket-header {
+  background: #8f8f8f;
+  color: whitesmoke;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+/* line 12, ../../../sass/partials/_tickets.scss */
+.ticket-update-ticket {
+  font-size: 0.7em;
+  padding: 0.3em 1.5em;
+  color: white;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF8F8F8F', endColorstr='#FF5C5C5C');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8f8f8f), color-stop(100%, #767676));
+  background: -webkit-linear-gradient(#8f8f8f, #767676);
+  background: -moz-linear-gradient(#8f8f8f, #767676);
+  background: -o-linear-gradient(#8f8f8f, #767676);
+  background: linear-gradient(#8f8f8f, #767676);
+  -webkit-box-shadow: #b5b5b5 0 1px 0 inset;
+  -moz-box-shadow: #b5b5b5 0 1px 0 inset;
+  box-shadow: #b5b5b5 0 1px 0 inset;
+  border: 1px solid dimgrey;
+  text-shadow: #4d4d4d 0 -1px 0;
+  font-weight: bold;
+  font-family: "Droid Sans Bold";
+}
+/* line 15, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.ticket-update-ticket:hover {
+  text-decoration: none;
+}
+/* line 36, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.ticket-update-ticket:hover {
+  background-color: dimgrey;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #828282), color-stop(100%, #696969));
+  background: -webkit-linear-gradient(#828282, #696969);
+  background: -moz-linear-gradient(#828282, #696969);
+  background: -o-linear-gradient(#828282, #696969);
+  background: linear-gradient(#828282, #696969);
+}
+/* line 39, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.ticket-update-ticket:active {
+  -webkit-box-shadow: #616161 0 1px 2px inset;
+  -moz-box-shadow: #616161 0 1px 2px inset;
+  box-shadow: #616161 0 1px 2px inset;
+}
+/* line 6, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.ticket-update-ticket.disabled, .ticket-update-ticket[disabled] {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6;
+  background: #767676;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* line 76, ../../../../../local/gems/gems/sassy-buttons-0.2/stylesheets/_sassy-buttons.sass */
+.ticket-update-ticket::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+
+/* line 18, ../../../sass/partials/_tickets.scss */
+.ticket-status-entry {
+  background: #8f8f8f;
+  margin: 0.1em;
+  border-bottom-style: dashed;
+  border-bottom-width: 0.1em;
+  border-bottom-color: #c2c2c2;
+}
+
+/* line 27, ../../../sass/partials/_tickets.scss */
+.ticket-status-entry-changedate {
+  font-size: 0.8em;
+  text-align: center;
+}
+
+/* line 32, ../../../sass/partials/_tickets.scss */
+.ticket-status-entry-reason {
+  font-size: 0.8em;
+}
+
+/*-------- Ticket List ----------*/
+/* line 39, ../../../sass/partials/_tickets.scss */
+.tickets-list-header {
+  background: #8f8f8f;
+  color: whitesmoke;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+/* line 45, ../../../sass/partials/_tickets.scss */
+.tickets-list-list {
+  background: #8f8f8f;
+  padding: 0.3em;
+}
+
+/* line 49, ../../../sass/partials/_tickets.scss */
+.tickets-list-entry {
+  background: #8f8f8f;
+  margin: 0.5em;
+  border-style: solid;
+  border-width: 0.1em;
+  border-color: #c2c2c2;
+  padding: 0.3em;
+}
+
+/* line 57, ../../../sass/partials/_tickets.scss */
+.tickets-list-entry-status {
+  float: right;
+}

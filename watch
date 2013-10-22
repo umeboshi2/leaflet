@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+import os
+import sys
+import time
+import subprocess
+
+package_name = 'leaflet'
+
+javascript_directory = os.path.join(package_name, 'static/js/')
+
+coffee_cmd = ['coffee', '-wc', '-o', javascript_directory, 'coffee/']
+compass_cmd = ['compass', 'watch']
+
+coffee_proc = subprocess.Popen(coffee_cmd)
+compass_proc = subprocess.Popen(compass_cmd)
+
+while not (coffee_proc.poll() or compass_proc.poll()):
+    time.sleep(5)
+
+# check which one stopped
+coffee_ret = coffee_proc.returncode
+compass_ret = compass_proc.returncode
+
+if coffee_ret is None:
+    print "Stopping coffee"
+    coffee_proc.terminate()
+else:
+    print "coffee returned", coffee_ret
+
+
+if compass_ret is None:
+    print "Stopping compass"
+    compass_proc.terminate()
+else:
+    print "compass returned", compass_ret
+
+

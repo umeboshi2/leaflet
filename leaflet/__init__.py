@@ -1,98 +1,131 @@
 import os
-
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 from pyramid_beaker import session_factory_from_settings
 
-from trumpet.security import authn_policy, authz_policy
-
-from trumpet.models.base import DBSession, Base
-from trumpet.models.usergroup import populate
-from trumpet.models.wiki import populate_wiki
-from trumpet.models.rssdata import populate_feeds
-from trumpet.models.sitecontent import populate_sitetext
-from trumpet.models.base import initialize_sql
-
 from trumpet.config.base import basetemplate, configure_base_layout
-from trumpet.config.static import configure_static
-from trumpet.config.wiki import configure_wiki
-from trumpet.config.rssviewer import configure_rssviewer
-from trumpet.config.login import configure_login
 
-
-def get_dburl():
-    dbhost = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
-    dbport = os.environ['OPENSHIFT_POSTGRESQL_DB_PORT']
-    dbuser = os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME']
-    dbpass = os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD']
-    #dbprefix = os.environ['OPENSHIFT_POSTGRESQL_DB_URL']
-    #dbuser = '%s/leaflet' % dbprefix
-    dburl = "postgresql://%s:%s@%s:%s/leaflet"
-    dburl = dburl % (dbuser, dbpass, dbhost, dbport)
-    return dburl
+from leaflet.security import make_authn_authz_policies, authenticate
+from leaflet.models.base import DBSession, Base
+from leaflet.config.admin import configure_admin
+from leaflet.config.main import configure_wiki
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    if 'OPENSHIFT_POSTGRESQL_DB_HOST' in os.environ:
-        settings['sqlalchemy.url'] = get_dburl()
-    engine = engine_from_config(settings, 'sqlalchemy.')
-    settings['db.sessionmaker'] = DBSession
-    DBSession.configure(bind=engine)
-    Base.metadata.bind = engine
-    Base.metadata.create_all(engine)
-    initialize_sql(engine, [populate,
-                            populate_wiki,
-                            populate_feeds,
-                            populate_sitetext])
-    session_factory = session_factory_from_settings(settings)
-    root_factory = 'trumpet.resources.RootGroupFactory'
+    # set app name
+    appname = 'leaflet'
+    from leaflet.resources import RootGroupFactory
+    root_factory = RootGroupFactory
+    # alchemy request provides .db method
     request_factory = 'trumpet.request.AlchemyRequest'
+    # get admin username
+    admin_username = settings.get('leaflet.admin.admin_username', 'admin')
+    # create db engine
+    engine = engine_from_config(settings, 'sqlalchemy.')
+    # setup db.sessionmaker
+    settings['db.sessionmaker'] = DBSession
+    # bind session to engine
+    DBSession.configure(bind=engine)
+    # bind objects to engine
+    Base.metadata.bind = engine
+
+    if settings.get('db.populate', 'False') == 'True':
+        from leaflet.models.main import make_test_data
+        Base.metadata.create_all(engine)
+        #initialize_sql(engine)
+        #make_test_data(DBSession)
+        from leaflet.models.usergroup import populate_groups
+        populate_groups()
+        from leaflet.models.usergroup import populate
+        populate(admin_username)
+        from leaflet.models.sitecontent import populate_sitetext
+        populate_sitetext()
+        
+        
+    # setup authn and authz
+    secret = settings['%s.authn.secret' % appname]
+    cookie = settings['%s.authn.cookie' % appname]
+    timeout = int(settings['%s.authn.timeout' % appname])
+    authn_policy, authz_policy = make_authn_authz_policies(
+        secret, cookie, callback=authenticate,
+        timeout=timeout, tkt=False)
+    root_factory.authn_policy = authn_policy
+    # create config object
     config = Configurator(settings=settings,
                           root_factory=root_factory,
                           request_factory=request_factory,
                           authentication_policy=authn_policy,
-                          authorization_policy=authz_policy,
-                          session_factory=session_factory
-                          )
-    configure_static(config)
+                          authorization_policy=authz_policy)
+    session_factory = session_factory_from_settings(settings)
+    config.set_session_factory(session_factory)
+
     config.include('pyramid_fanstatic')
+
     configure_base_layout(config)
-    
-    config.add_static_view('static', 'static', cache_max_age=3600)
+    configure_admin(config)
+    configure_wiki(config, '/pkg_wiki')
+    config.add_static_view('static',
+                           'leaflet:static', cache_max_age=3600)
+    ##################################
+    # Main Views
+    ##################################
     config.add_route('home', '/')
     config.add_view('leaflet.views.main.MainViewer',
-                    route_name='home',
+                    layout='base',
+                    renderer=basetemplate,
+                    route_name='home')
+    config.add_route('main', '/main/{context}/{id}')
+    config.add_view('leaflet.views.main.MainViewer',
+                    layout='base',
+                    renderer=basetemplate,
+                    route_name='main')
+    config.add_route('initdb', '/initdb/{context}/{id}')
+    config.add_view('leaflet.views.main.MainViewer',
+                    layout='base',
+                    renderer=basetemplate,
+                    route_name='initdb')
+    ##################################
+    # Login Views
+    ##################################
+    login_viewer = 'leaflet.views.login.LoginViewer'
+    config.add_route('login', '/login')
+    config.add_view(login_viewer,
+                    renderer=basetemplate,
+                    layout='base',
+                    route_name='login')
+    
+    
+    config.add_route('logout', '/logout')
+    config.add_view(login_viewer,
+                    renderer=basetemplate,
+                    layout='base',
+                    route_name='logout')
+
+    
+    # Handle HTTPForbidden errors with a
+    # redirect to a login page.
+    config.add_view(login_viewer,
+                    context='pyramid.httpexceptions.HTTPForbidden',
                     renderer=basetemplate,
                     layout='base')
+    ##################################
 
-    configure_login(config)
-    configure_rssviewer(config, '/rssviewer')
-    configure_wiki(config, '/wiki')
-
-    config.add_route('hubby', '/hubby')
-    config.add_route('hubby_context', '/hubby/{context}/{id}')
-    config.add_route('hubby_collect', '/hubby/collect/{object}/{id}')
-    for route in ['hubby', 'hubby_context']:
-        config.add_view('leaflet.views.vhubby.MainViewer',
-                        route_name=route,
-                        renderer=basetemplate,
-                        layout='base')
-
-    config.add_route('hubby_json', '/hubbyjson/{context}/{id}')
-    config.add_view('leaflet.views.hubjson.MainViewer',
-                    route_name='hubby_json',
-                    renderer='json',
-                    layout='base')
-    config.add_route('hubby_jax', '/hubbyjax/{context}/{id}')
-    config.add_view('leaflet.views.hubjax.MainViewer',
-                    route_name='hubby_jax',
-                    renderer='string',
-                    layout='base')
-    config.add_route('agenda_slideshow', '/agendaslide/{item}')
+    ##################################
+    # Views for Users
+    ##################################
+    config.add_route('user', '/user/{context}')
+    config.add_view('leaflet.views.userview.MainViewer',
+                    route_name='user',
+                    renderer=basetemplate,
+                    layout='base',
+                    permission='user')
+    
+    ##################################
     
     
-    return config.make_wsgi_app()
-
-
+    # wrap app with Fanstatic
+    app = config.make_wsgi_app()
+    from fanstatic import Fanstatic
+    return Fanstatic(app)
 
