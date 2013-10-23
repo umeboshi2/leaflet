@@ -5,7 +5,7 @@
 </div>
 <ul>
 %for meeting in dept.meetings:
-<% href = request.route_url('hubby_context', context='viewmeeting', id=meeting.id) %>
+<% href = request.route_url('hubby_main', context='viewmeeting', id=meeting.id) %>
     <li class="hubby-dept-meeting-item"><a href="${href}">${meeting.title}</a></li>
 %endfor
 </ul>

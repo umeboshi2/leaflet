@@ -43,7 +43,7 @@
 	    </div>
 	    %endif
 	    %if mitem.item.actions:
-	    <div class="hubby-meeting-item-action-marker" id="${mitem.item.id}" onclick="${request.route_url('hubby_jax', context='itemactions', id=mitem.item.id)}">Actions</div>
+	    <div class="hubby-meeting-item-action-marker" id="${mitem.item.id}" onclick="${request.route_url('hubby_frag', context='itemactions', id=mitem.item.id)}">Actions</div>
 	    <div class="hubby-meeting-item-actions"></div>
 	    %endif
 	  </div>

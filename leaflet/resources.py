@@ -22,6 +22,8 @@ post_to_url = Resource(js, 'post2url.js', depends=[jqueryui])
 
 main_calendar_view = Resource(js, 'main-calendar-view.js', depends=[fc_css])
 
+show_attachments = Resource(js, 'show-attachments.js', depends=[jqueryui])
+
 
 
 
@@ -36,6 +38,7 @@ class StaticResources(TrumpetResources):
     main_calendar_view = main_calendar_view
     
     post_to_url = post_to_url
+    show_attachments = show_attachments
     
 # the acl entries are allow/deny, group, permission
 class RootGroupFactory(object):

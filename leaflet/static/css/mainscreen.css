@@ -897,3 +897,71 @@ html {
 .tickets-list-entry-status {
   float: right;
 }
+
+/* line 2, ../../../sass/partials/_list-styles.scss */
+.listview-simple-header {
+  background: #6a7b6a;
+  color: #d6dbd6;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+/* line 9, ../../../sass/partials/_list-styles.scss */
+.listview-header {
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+  border-radius: 0.5em;
+  background: #6a7b6a;
+  color: #d6dbd6;
+  text-align: center;
+  font-size: 1.25em;
+  border-style: solid;
+  border-width: 0.3em;
+  border-color: #9fac9f;
+}
+
+/* line 20, ../../../sass/partials/_list-styles.scss */
+.listview-history {
+  border-style: solid;
+  border-width: 0.3em;
+  border-color: #9fac9f;
+}
+
+/* line 28, ../../../sass/partials/_list-styles.scss */
+.listview-list {
+  background: #6a7b6a;
+  padding: 0.3em;
+}
+
+/* line 33, ../../../sass/partials/_list-styles.scss */
+.listview-list-entry-header {
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+  border-radius: 0.5em;
+  font-size: 1.2em;
+  text-align: center;
+  background: #849484;
+  border-style: solid;
+  border-width: 0.2em;
+  border-color: #9fac9f;
+  padding: 0.3em;
+}
+
+/* line 43, ../../../sass/partials/_list-styles.scss */
+.listview-list-entry {
+  background: #6a7b6a;
+  margin: 0.5em;
+  border-style: solid;
+  border-width: 0.1em;
+  border-color: #9fac9f;
+  padding: 0.3em;
+}
+
+/* line 52, ../../../sass/partials/_list-styles.scss */
+.listview-list-entry-status {
+  float: right;
+}

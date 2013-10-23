@@ -16,8 +16,8 @@ from hubby.tagger import tag_all_items
 from hubby.tagger import add_tag_names
 
 from leaflet.resources import show_attachments
-from leaflet.resources import hubby_css
 
+from leaflet.views.base import BaseViewer
 
 NUMBER_OF_DEPARTMENTS = 10
 
@@ -60,7 +60,7 @@ def prepare_main_data(request):
     layout.subheader = ''
     layout.content = ''
     layout.footer = str(request.params)
-    hubby_css.need()
+    
     
 class MainViewer(BaseViewer):
     def __init__(self, request):
@@ -73,6 +73,8 @@ class MainViewer(BaseViewer):
         self.manager = ModelManager(self.dbsession)
         # make left menu
         entries = []
+        url = self.url(context='main', id='calendar')
+        entries.append(('Main View', url))
         url = self.url(context='dbmeetings', id=None)
         entries.append(('Meetings', url))
         url = self.url(context='items', id=None)
@@ -90,19 +92,21 @@ class MainViewer(BaseViewer):
                            feed=self.request.matchdict['feed'])
             entries.append(('Delete Feed', url))
         header = 'Hubby Menu'
-        self.layout.left_menu.set_new_entries(entries, header=header)
+        self.layout.ctx_menu.set_new_entries(entries, header=header)
         
 
         # make dispatch table
-        self._cntxt_meth = dict(dbmeetings=self.view_db_meetings,
-                                viewmeeting=self.view_meeting,
-                                viewdepts=self.view_departments,
-                                viewpeople=self.view_people,
-                                viewdepartment=self.view_dept_meetings,
-                                tagitems=self.view_tag_items,
-                                viewtags=self.view_tags,
-                                viewtaggeditem=self.view_items_with_tag,
-                                )
+        self._cntxt_meth = dict(
+            main=self.main_calendar_view,
+            dbmeetings=self.view_db_meetings,
+            viewmeeting=self.view_meeting,
+            viewdepts=self.view_departments,
+            viewpeople=self.view_people,
+            viewdepartment=self.view_dept_meetings,
+            tagitems=self.view_tag_items,
+            viewtags=self.view_tags,
+            viewtaggeditem=self.view_items_with_tag,
+            )
                 
         
         # dispatch context request
@@ -113,10 +117,24 @@ class MainViewer(BaseViewer):
             self.layout.content = '<b>%s</b>' % msg
 
 
+    def main_calendar_view(self):
+        template = 'leaflet:templates/mainview-calendar.mako'
+        env = dict()
+        content = self.render(template, env)
+        self.layout.content = content
+        self.layout.resources.main_calendar_view.need()
+        self.layout.resources.cornsilk.need()
+        
     def view_db_meetings(self):
         query = self.dbsession.query(Meeting).order_by(desc(Meeting.date))
         meetings = query.all()
         items = []
+        template = 'leaflet:templates/meetinglist.mako'
+        env = dict(meetings=meetings)
+        content = self.render(template, env)
+        self.layout.content = content
+
+    def _oldstuff(self):
         for meeting in meetings:
             url = self.url(context='viewmeeting', id=meeting.id)
             anchor = '<a href="%s">%s</a>' % (url, meeting.title)
@@ -144,9 +162,9 @@ class MainViewer(BaseViewer):
         self.layout.content = render(template, env, request=self.request)
         self.layout.resources.jqueryui.need()
         show_attachments.need()
-        #self.layout.resources.cornsilk.need()
-        from trumpet.resources import cornsilk
-        cornsilk.need()
+        self.layout.resources.cornsilk.need()
+        #from trumpet.resources import cornsilk
+        #cornsilk.need()
         
     def view_departments(self):
         rows = self.dbsession.query(Department).all()

@@ -21,7 +21,7 @@
 	    </div>
 	    %endif
 	    %if item.actions:
-	    <div class="hubby-meeting-item-action-marker" id="${item.id}" onclick="${request.route_url('hubby_jax', context='itemactions', id=item.id)}">Actions</div>
+	    <div class="hubby-meeting-item-action-marker" id="${item.id}" onclick="${request.route_url('hubby_frag', context='itemactions', id=item.id)}">Actions</div>
 	    <div class="hubby-meeting-item-actions"></div>
 	    %endif
 	  </div>

@@ -61,7 +61,8 @@ def make_ctx_menu(request):
         user = request.session['user']
         url = request.route_url('view_wiki')
         menu.append_new_entry('Wiki', url)
-        
+    url = request.route_url('hubby_main', context='main', id='calendar')
+    menu.append_new_entry('Hubby', url)
     return menu
     
 class BaseViewer(TrumpetViewer):
@@ -83,6 +84,10 @@ class BaseViewer(TrumpetViewer):
         username = self.get_admin_username()
         user_id = get_user_id(self.request, username)
         return authn == user_id
+
+    def get_current_user(self):
+        user_id = self.get_current_user_id()
+        return self.request.db.query(User).get(user_id)
     
     
 class AdminViewer(BaseViewer):

@@ -9,6 +9,7 @@ from leaflet.security import make_authn_authz_policies, authenticate
 from leaflet.models.base import DBSession, Base
 from leaflet.config.admin import configure_admin
 from leaflet.config.main import configure_wiki
+from leaflet.config.main import configure_hubby
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -85,6 +86,10 @@ def main(global_config, **settings):
                     layout='base',
                     renderer=basetemplate,
                     route_name='initdb')
+    ##################################
+    # Hubby Views
+    ##################################
+    configure_hubby(config, '/hubby')
     ##################################
     # Login Views
     ##################################

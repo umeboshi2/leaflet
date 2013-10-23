@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from trumpet.views.base import BaseViewer
 
 from hubby.database import Meeting
@@ -5,6 +7,7 @@ from hubby.database import Item
 
 from hubby.manager import ModelManager
 
+one_hour = timedelta(hours=1)
 
 class MainViewer(BaseViewer):
     def __init__(self, request):
@@ -23,6 +26,7 @@ class MainViewer(BaseViewer):
             dept=self.get_dept,
             people=self.get_people,
             itemactions=self.get_item_actions,
+            meetingrange=self.get_ranged_meetings,
             )
         # dispatch context request
         if self.context in self._cntxt_meth:
@@ -39,6 +43,18 @@ class MainViewer(BaseViewer):
                     dept_id=meeting.dept_id, updated=str(meeting.updated))
         return data
 
+    def serialize_meeting_for_calendar(self, meeting):
+        url = self.request.route_url('hubby_main',
+                                     context='viewmeeting', id=meeting.id)
+        start = meeting.date
+        end = start + one_hour
+        title = meeting.title
+        data = dict(id=meeting.id, start=start.isoformat(),
+                    end=end.isoformat(),
+                    title=meeting.title, url=url)
+        return data
+    
+        
     def serialize_item(self, item):
         data = dict()
         keys = ['id', 'guid', 'file_id', 'filetype', 'name', 'title',
@@ -73,4 +89,31 @@ class MainViewer(BaseViewer):
         id = self.request.matchdict['id']
         meeting = self.db.query(Meeting).get(id)
         self.response = self.serialize_meeting(meeting)
+
+    def get_item(self):
+        raise RuntimeError, "don't call me"
+
+    def get_dept(self):
+        raise RuntimeError, "don't call me"
+
+    def get_people(self):
+        raise RuntimeError, "don't call me"
+        
+    
+    def _get_start_end_userid(self, user_id=True):
+        start = self.request.GET['start']
+        end = self.request.GET['end']
+        if user_id:
+            user_id = self.request.session['user'].id
+        return start, end, user_id
+        
+    def get_ranged_meetings(self):
+        start, end, ignore = self._get_start_end_userid(user_id=False)
+        meetings = self.manager.get_ranged_meetings(start,
+                                                    end, timestamps=True)
+        mlist = list()
+        for m in meetings:
+            sm = self.serialize_meeting_for_calendar(m)
+            mlist.append(sm)
+        self.response = mlist
     

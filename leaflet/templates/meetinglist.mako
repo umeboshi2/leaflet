@@ -1,33 +1,24 @@
-<div id="accordion" class="hubby-meeting">
-<div class="hubby-meeting-header">
-  <p>Department: ${meeting.dept.name}.</p>
-  <p>Meeting for ${meeting.date.strftime("%A, %B %d, %Y")}.</p>
+<div class="meetinglist-view">
+  <% dtformat = '%b %d %Y - %H:%M:%S' %>
+  <% timeformat = '%I:%M %p' %>
+  <div class="listview-header">
+    <p>There are ${len(meetings)} meetings.</p>
+  </div>
+  <div class="listview-list">
+    <% route = 'hubby_main' %>
+    <% ctxt = 'viewmeeting' %>
+    <% mkurl = request.route_url %>
+    %for m in meetings:
+    <% url = mkurl(route, context=ctxt, id=m.id) %>
+    <div class="listview-list-entry">
+      %if m.time:
+      <p>${m.time}</p>
+      %else:
+      <h4>No Time</h4>
+      %endif
+      <a href="${url}">${m.title}</a>&nbsp;<a href="${m.link}">(legistar)</a>
+    </div>
+    %endfor
+  </div>
 </div>
-<div class="hubby-meeting-list">
-<% section = "start" %>
-%for mitem in meeting.meeting_items:
-    %if mitem.type != section and mitem.type is not None:
-        <% section = mitem.type %>
-	<h3 class="hubby-meeting-agenda-header">${mitem.type.capitalize()} Agenda</h3>
-     %endif
-	<div class="hubby-meeting-item">
-	  <div>${mitem.item.name}</div>
-	  <p class="hubby-meeting-item-status">Status:  ${mitem.item.status}</p>
-	  <p class="hubby-meeting-item-text">${mitem.item.title}</p>
-	  %if mitem.item.attachments:
-	  <div class="hubby-meeting-item-attachment-marker">Attachments</div>
-	  <ul class="hubby-meeting-item-attachments">
-	    %for att in mitem.item.attachments:
-	    <li><a href="${att.get_link()}">${att.name}</a></li>
-	    %endfor
-	  </ul>
-	  %endif
-	  %if mitem.item.actions:
-	  <div class="hubby-meeting-item-action-marker" id="${mitem.item.id}" onclick="${request.route_url('hubby_jax', context='itemactions', id=mitem.item.id)}">Actions</div>
-	  <div class="hubby-meeting-item-actions"></div>
-	  %endif
 
-	</div>
-%endfor
-</div>
-</div>
