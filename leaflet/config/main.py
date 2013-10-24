@@ -6,7 +6,15 @@ viewers = dict(contacts='ContactViewer',
                calendar='CalendarViewer',)
 
 
-
+def configure_mainevent(config, rootpath='/mainevent'):
+    route_name = 'mainevent_venue'
+    config.add_route(route_name, '%s/venue/{context}/{id}' % rootpath)
+    config.add_view('leaflet.views.venues.MainViewer',
+                    route_name=route_name,
+                    renderer=basetemplate,
+                    layout='base',)
+    
+    
 def configure_hubby(config, rootpath='/hubby'):
     route_name = 'hubby_main'
     config.add_route(route_name, '%s/main/{context}/{id}' % rootpath)

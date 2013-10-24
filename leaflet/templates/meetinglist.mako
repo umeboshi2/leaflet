@@ -11,9 +11,7 @@
     %for m in meetings:
     <% url = mkurl(route, context=ctxt, id=m.id) %>
     <div class="listview-list-entry">
-      %if m.time:
-      <p>${m.time}</p>
-      %else:
+      %if not m.time:
       <h4>No Time</h4>
       %endif
       <a href="${url}">${m.title}</a>&nbsp;<a href="${m.link}">(legistar)</a>

@@ -10,6 +10,7 @@ from leaflet.models.base import DBSession, Base
 from leaflet.config.admin import configure_admin
 from leaflet.config.main import configure_wiki
 from leaflet.config.main import configure_hubby
+from leaflet.config.main import configure_mainevent
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -30,8 +31,9 @@ def main(global_config, **settings):
     DBSession.configure(bind=engine)
     # bind objects to engine
     Base.metadata.bind = engine
-
+    #Base.metadata.create_all(engine)
     if settings.get('db.populate', 'False') == 'True':
+        import leaflet.models.eventmodels
         from leaflet.models.main import make_test_data
         Base.metadata.create_all(engine)
         #initialize_sql(engine)
@@ -90,6 +92,9 @@ def main(global_config, **settings):
     # Hubby Views
     ##################################
     configure_hubby(config, '/hubby')
+
+    # more views
+    configure_mainevent(config)
     ##################################
     # Login Views
     ##################################

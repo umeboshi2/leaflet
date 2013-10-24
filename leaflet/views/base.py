@@ -61,6 +61,9 @@ def make_ctx_menu(request):
         user = request.session['user']
         url = request.route_url('view_wiki')
         menu.append_new_entry('Wiki', url)
+        url = request.route_url('mainevent_venue', context='main', id='main')
+        menu.append_new_entry('Venues', url)
+        
     url = request.route_url('hubby_main', context='main', id='calendar')
     menu.append_new_entry('Hubby', url)
     return menu
