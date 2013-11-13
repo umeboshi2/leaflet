@@ -1,7 +1,7 @@
 from pyramid.security import Allow, Everyone, Authenticated
 from fanstatic import Library, Resource
 
-from haberdashery.resources import jqueryui, fc_css, deform_css
+from haberdashery.resources import jqueryui, fullcalendar, deform_css
 
 
 #from trumpet.resources import jqueryui
@@ -20,7 +20,8 @@ admin_screen = Resource(css, 'adminscreen.css', depends=[deform_css])
 post_to_url = Resource(js, 'post2url.js', depends=[jqueryui])
 
 
-main_calendar_view = Resource(js, 'main-calendar-view.js', depends=[fc_css])
+main_calendar_view = Resource(js, 'main-calendar-view.js',
+                              depends=[fullcalendar])
 
 show_attachments = Resource(js, 'show-attachments.js', depends=[jqueryui])
 

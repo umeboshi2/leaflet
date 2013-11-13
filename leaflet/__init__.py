@@ -31,6 +31,8 @@ def main(global_config, **settings):
     DBSession.configure(bind=engine)
     # bind objects to engine
     Base.metadata.bind = engine
+    from trumpet.models.base import Base as TrumpetBase
+    TrumpetBase.metadata.bind = engine
     #Base.metadata.create_all(engine)
     if settings.get('db.populate', 'False') == 'True':
         import leaflet.models.eventmodels
@@ -44,8 +46,9 @@ def main(global_config, **settings):
         populate(admin_username)
         from leaflet.models.sitecontent import populate_sitetext
         populate_sitetext()
-        
-        
+        from trumpet.models.sitecontent import SitePath
+        TrumpetBase.metadata.create_all(engine)
+        Base.metadata.create_all(engine)
     # setup authn and authz
     secret = settings['%s.authn.secret' % appname]
     cookie = settings['%s.authn.cookie' % appname]
