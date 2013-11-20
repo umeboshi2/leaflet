@@ -7,7 +7,7 @@ $(document).ready ->
                 $(this).next().toggle()
         $('.hubby-meeting-item-action-marker').click ->
                 if $(this).hasClass('itemaction-loaded')
-                        $(this).next().hide()
+                        $(this).next().toggle()
                 else
                         itemid = $(this).attr('id')
                         url = '/hubby/frag/itemactions/' + itemid

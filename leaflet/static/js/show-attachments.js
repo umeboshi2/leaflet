@@ -12,7 +12,7 @@
     return $('.hubby-meeting-item-action-marker').click(function() {
       var itemid, url;
       if ($(this).hasClass('itemaction-loaded')) {
-        return $(this).next().hide();
+        return $(this).next().toggle();
       } else {
         itemid = $(this).attr('id');
         url = '/hubby/frag/itemactions/' + itemid;
