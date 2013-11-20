@@ -15,10 +15,10 @@ from trumpet.resources import MemoryTmpStore
 
 from trumpet.managers.admin.images import ImageManager
 
-from trumpet.views.base import NotFound
 from trumpet.views.menus import BaseMenu
 
-from leaflet.views.base import AdminViewer, make_main_menu
+from leaflet.views.base import AdminViewer
+from leaflet.views.admin.base import make_main_menu
 from leaflet.managers.wiki import WikiArchiver
 
 
@@ -27,19 +27,6 @@ import deform
 
 tmpstore = MemoryTmpStore()
 
-def prepare_main_data(request):
-    layout = request.layout_manager.layout
-    menu = layout.ctx_menu
-    imgroute = 'admin_images'
-    url = request.route_url(imgroute, context='list', id=None)
-    menu.append_new_entry('List Images', url)
-    url = request.route_url(imgroute, context='add', id=None)
-    menu.append_new_entry('Add Image', url)
-    main_menu = make_main_menu(request)
-    layout.title = 'Manage Images'
-    layout.header = 'Manage Images' 
-    layout.main_menu = main_menu.render()
-    layout.ctx_menu = menu
 
 class EditSiteTextSchema(colander.Schema):
     name = colander.SchemaNode(
@@ -55,7 +42,7 @@ class EditSiteTextSchema(colander.Schema):
 class SiteTextViewer(AdminViewer):
     def __init__(self, request):
         super(SiteTextViewer, self).__init__(request)
-        #prepare_main_data(self.request)
+        self.layout.main_menu = make_main_menu(request)
         self.images = ImageManager(self.request.db)
         self._dispatch_table = dict(
             list=self.list_site_text,
@@ -68,13 +55,14 @@ class SiteTextViewer(AdminViewer):
             download_wiki_archive=self.download_wiki_archive,)
         self.context = self.request.matchdict['context']
         self._view = self.context
+        self._set_options_menu()
         self.dispatch()
 
 
             
-    def _set_menu(self):
-        menu = self.layout.ctx_menu
-        menu.set_header('Site Text Menu')
+    def _set_options_menu(self):
+        menu = BaseMenu()
+        menu.set_header('Site Text Actions')
 
         url = self.url(context='list', id='all')
         menu.append_new_entry('List Entries', url)
@@ -84,25 +72,21 @@ class SiteTextViewer(AdminViewer):
 
         url = self.url(context='download_wiki_archive', id='all')
         menu.append_new_entry('Download Wiki Archive', url)
+        self.layout.options_menus = dict(actions=menu)
         
     def main(self):
-        self._set_menu()
         content = '<h1>Here is where we manage site text.</h1>'
         self.layout.content = content
 
 
     def manage_site_text(self):
-        self._set_menu()
         action = None
         if 'action' in self.request.GET:
             action = self.request.GET['action']
             return self._manage_site_text_action_map[action]()
             
         
-        
-        
     def view_site_text(self):
-        self._set_menu()
         id = int(self.request.matchdict['id'])
         self.layout.footer = str(type(id))
         entry = self.request.db.query(SiteText).get(id)
@@ -111,36 +95,11 @@ class SiteTextViewer(AdminViewer):
 
 
     def list_site_text(self):
-        self._set_menu()
         template = 'leaflet:templates/list-site-text.mako'
         entries = self.request.db.query(SiteText).all()
         env = dict(viewer=self, entries=entries)
         self.layout.content = self.render(template, env)
         
-    def list_site_text_orig(self):
-        self._set_menu()
-        content = '<h1>Here is where we <b>list</b> site text.</h1>'
-        self.layout.content = content
-        anchors = []
-        edit_anchors = []
-        entries = self.request.db.query(SiteText).all()
-        for entry in entries:
-            getdata = dict(action='viewentry', id=entry.id)
-            href = self.url(context='viewentry', id=entry.id)
-            anchors.append('<a href="%s">%s</a>' % (href, entry.name))
-            getdata['action'] = 'editentry'
-            href = self.url(context='editentry', id=entry.id)
-            edit_anchors.append('<a href="%s">edit</a>' % href)
-
-        list_items = []
-        for index in range(len(anchors)):
-            list_item = '<li>%s(%s)</li>'
-            list_item = list_item % (anchors[index], edit_anchors[index])
-            list_items.append(list_item)
-            
-        ul = '<ul>%s</ul>' % '\n'.join(list_items)
-        self.layout.content = ul
-
     def _edit_site_text_form(self):
         schema = EditSiteTextSchema()
         submit_button = deform.form.Button(name='submit_site_text',
@@ -180,7 +139,6 @@ class SiteTextViewer(AdminViewer):
             self.layout.subheader = 'Please edit content'
             
     def create_site_text(self):
-        self._set_menu()
         form = self._edit_site_text_form()
         # check submission
         if 'submit_site_text' in self.request.params:
@@ -199,7 +157,6 @@ class SiteTextViewer(AdminViewer):
         
 
     def edit_site_text(self):
-        self._set_menu()
         form = self._edit_site_text_form()
         rendered = form.render()
         id = int(self.request.matchdict['id'])
@@ -220,7 +177,6 @@ class SiteTextViewer(AdminViewer):
             
 
     def download_wiki_archive(self):
-        self._set_menu()
         archiver = WikiArchiver(self.request.db)
         archiver.create_new_zipfile()
         archive = archiver.archive_pages()

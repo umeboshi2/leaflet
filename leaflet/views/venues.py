@@ -20,7 +20,7 @@ from leaflet.managers.mainevents import VenueManager
 
 
 from leaflet.views.base import BaseViewer
-from leaflet.views.base import make_main_menu, make_ctx_menu
+from leaflet.views.base import make_main_menu
 from leaflet.views.schema import AddVenueSchema
 
     
@@ -28,15 +28,18 @@ class MainViewer(BaseViewer):
     def __init__(self, request):
         super(MainViewer, self).__init__(request)
         self.route = self.request.matched_route.name
-        self.layout.main_menu = make_main_menu(self.request).render()
+        self.layout.main_menu = make_main_menu(self.request)
         self._user_query = self.request.db.query(User)
         self.context = self.request.matchdict['context']
 
         self.venues = VenueManager(self.request.db)
-        menu = make_ctx_menu(self.request)
+
+        menu = BaseMenu()
+        menu.set_header("Actions")
         url = self.url(context='add', id='fff')
         menu.append_new_entry('Add Venue', url)
-        self.layout.ctx_menu = menu.output()
+        self.layout.options_menus = dict(actions=menu)
+        
         
 
         # make dispatch table

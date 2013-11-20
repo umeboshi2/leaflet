@@ -5,6 +5,19 @@
 //@import "partials/basecolors/darkseagreen";
 @import "partials/basecolors/darkseagreen";
 
+
+/* import all colors and variables before bootstrap */
+
+@import "partials/bootstrap-variables";
+
+//@import "bootstrap/variables";
+//@import "bootstrap/mixins";
+
+
+@import "bootstrap";
+
+
+
 @import "partials/common-page";
 
 

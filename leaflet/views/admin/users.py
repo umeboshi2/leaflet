@@ -15,14 +15,14 @@ from trumpet.models.usergroup import UserGroup
 
 
 
-from trumpet.views.base import NotFound
 from trumpet.views.menus import BaseMenu
 
 from trumpet.managers.admin.users import UserManager
 
 from trumpet.security import encrypt_password
 
-from leaflet.views.base import AdminViewer, make_main_menu
+from leaflet.views.base import AdminViewer
+from leaflet.views.admin.base import make_main_menu
 
 import colander
 import deform
@@ -38,7 +38,10 @@ def make_select_widget(choices):
 
 def prepare_main_data(request):
     layout = request.layout_manager.layout
-    menu = layout.ctx_menu
+    layout.main_menu = make_main_menu(request)
+    
+    menu = BaseMenu()
+    menu.set_header('Actions')
     route = 'admin_users'
     url = request.route_url(route, context='list', id='all')
     menu.append_new_entry('List Users', url)
@@ -46,11 +49,10 @@ def prepare_main_data(request):
     menu.append_new_entry('Add User', url)
     url = request.route_url(route, context='listgroups', id='all')
     menu.append_new_entry('List Groups', url)
-    main_menu = make_main_menu(request)
     layout.title = 'Manage Users'
     layout.header = 'Manage Users' 
-    layout.main_menu = main_menu.render()
-    layout.ctx_menu = menu
+    layout.options_menus = dict(actions=menu)
+    
 
 
 class AddUserSchema(colander.Schema):

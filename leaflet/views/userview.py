@@ -10,6 +10,7 @@ from pyramid.security import authenticated_userid
 
 from trumpet.security import check_password
 from trumpet.security import encrypt_password
+from trumpet.views.menus import BaseMenu
 
 from leaflet.managers.admin.users import UserManager
 from leaflet.views.base import BaseViewer
@@ -199,7 +200,11 @@ class MainViewer(BaseViewer):
         self.context = self.request.matchdict['context']
         self.layout.header = "User Preferences"
         self.layout.title = "User Preferences"
+        #self.layout.ctx_menu = None
+        if self.layout.ctx_menu is not None:
+            self.layout.subheader = str(self.layout.ctx_menu)
         # make left menu
+        menu = BaseMenu()
         entries = []
         url = request.route_url('user', context='chpasswd')
         entries.append(('Change Password', url))
@@ -213,8 +218,9 @@ class MainViewer(BaseViewer):
         entries.append(('Phone Call Prefs', url))
         url = request.route_url('user', context='caseprefs')
         entries.append(('Case Prefs', url))
-        menu = self.layout.ctx_menu
         menu.set_new_entries(entries, header='Preferences')
+        self.layout.options_menus = dict(prefs=menu)
+
         # make dispatch table
         self._cntxt_meth = dict(
             chpasswd=self.change_password,
@@ -224,6 +230,7 @@ class MainViewer(BaseViewer):
             caseprefs=self.case_preferences,
             preferences=self.preferences_view,
             )
+        
 
         # dispatch context request
         if self.context in self._cntxt_meth:

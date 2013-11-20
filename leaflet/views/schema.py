@@ -22,6 +22,19 @@ class AddUserSchema(colander.Schema):
         )
     
     
+class NameSelectSchema(colander.Schema):
+    name = colander.SchemaNode(
+        colander.Integer(),
+        title="Name",
+        widget=deferred_choices,
+        )
+    
+class UploadFileSchema(colander.Schema):
+    upload = colander.SchemaNode(
+        deform.FileData(),
+        widget=deform.widget.FileUploadWidget(tmpstore),
+        )
+    
 #############################
 # event schemas
 #############################

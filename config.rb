@@ -1,4 +1,5 @@
 require 'susy'
+require 'bootstrap-sass'
 # Require any additional compass plugins here.
 
 require 'sassy-buttons'

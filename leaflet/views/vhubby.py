@@ -6,7 +6,7 @@ from pyramid.renderers import render
 
 
 from trumpet.views.base import BaseViewer
-
+from trumpet.views.menus import BaseMenu
 
 from hubby.database import Meeting, Department, Person
 from hubby.database import Tag
@@ -57,8 +57,6 @@ def prepare_main_data(request):
     layout = request.layout_manager.layout
     layout.title = 'Hubby Page'
     layout.header = 'Hubby Page'
-    layout.subheader = ''
-    layout.content = ''
     layout.footer = str(request.params)
     
     
@@ -92,7 +90,10 @@ class MainViewer(BaseViewer):
                            feed=self.request.matchdict['feed'])
             entries.append(('Delete Feed', url))
         header = 'Hubby Menu'
-        self.layout.ctx_menu.set_new_entries(entries, header=header)
+        menu = BaseMenu()
+        menu.set_new_entries(entries, header=header)
+        self.layout.options_menus = dict(actions=menu)
+        
         
 
         # make dispatch table

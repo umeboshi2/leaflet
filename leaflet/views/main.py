@@ -17,7 +17,7 @@ from trumpet.views.menus import BaseMenu
 from leaflet.models.usergroup import User
 
 from leaflet.views.base import BaseViewer
-from leaflet.views.base import make_main_menu, make_ctx_menu
+from leaflet.views.base import make_main_menu
 
 class MainCalJSONViewer(BaseViewer):
     def __init__(self, request):
@@ -42,10 +42,10 @@ class MainViewer(BaseViewer):
     def __init__(self, request):
         super(MainViewer, self).__init__(request)
         self.route = self.request.matched_route.name
-        self.layout.main_menu = make_main_menu(self.request).render()
-        self.layout.ctx_menu = make_ctx_menu(self.request).output()
+        self.layout.main_menu = make_main_menu(self.request)
         self._user_query = self.request.db.query(User)
         
+        # begin dispatch
         if self.route == 'home':
             self.main_view()
             return
@@ -112,8 +112,6 @@ class MainViewer(BaseViewer):
             msg = "Create Database"
             anchor = '<a class="action-button" href="%s">%s</a>' % (url, msg)
             content = anchor
-            self.layout.ctx_menu = ''
-            self.layout.main_menu = ''
         else:
             url = self.request.route_url('login')
             content = '<a href="%s">Login</a>' % url

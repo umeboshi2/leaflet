@@ -7,11 +7,11 @@ import transaction
 from leaflet.models.base import DBSession, Base
 from leaflet.models.main import make_test_data
 
+from trumpet.models.sitecontent import SitePath
+from trumpet.models.sitecontent import populate_sitetext
+
 from leaflet.models.usergroup import populate_groups
 from leaflet.models.usergroup import populate
-from leaflet.models.sitecontent import populate_sitetext
-
-
 
 def initialize_database(settings):
     admin_username = settings.get('leaflet.admin.admin_username', 'admin')
@@ -19,4 +19,7 @@ def initialize_database(settings):
     Base.metadata.create_all(engine)
     populate_groups()
     populate(admin_username)
+    try:
     populate_sitetext()
+    except IntegrityError:
+        transaction.abort()

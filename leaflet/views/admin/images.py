@@ -11,10 +11,10 @@ from pyramid.renderers import render
 from trumpet.resources import MemoryTmpStore
 
 
-from trumpet.views.base import NotFound
 from trumpet.views.menus import BaseMenu
 
-from leaflet.views.base import AdminViewer, make_main_menu
+from leaflet.views.base import AdminViewer
+from leaflet.views.admin.base import make_main_menu
 from leaflet.managers.admin.images import ImageManager
 
 import colander
@@ -24,17 +24,18 @@ tmpstore = MemoryTmpStore()
 
 def prepare_main_data(request):
     layout = request.layout_manager.layout
-    menu = layout.ctx_menu
+    layout.main_menu = make_main_menu(request)
+    menu = BaseMenu()
+    menu.set_header('Image Actions')
     imgroute = 'admin_images'
     url = request.route_url(imgroute, context='list', id=None)
     menu.append_new_entry('List Images', url)
     url = request.route_url(imgroute, context='add', id=None)
     menu.append_new_entry('Add Image', url)
-    main_menu = make_main_menu(request)
+    layout.options_menus = dict(actions=menu)
     layout.title = 'Manage Images'
     layout.header = 'Manage Images' 
-    layout.main_menu = main_menu.render()
-    layout.ctx_menu = menu
+    
 
 
 class AddImageSchema(colander.Schema):

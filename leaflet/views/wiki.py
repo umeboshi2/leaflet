@@ -15,8 +15,10 @@ from leaflet.models.base import DBSession
 from trumpet.models.sitecontent import SiteText
 
 from trumpet.views.base import render_rst
+from trumpet.views.menus import BaseMenu
 
 from leaflet.views.base import BaseViewer
+from leaflet.views.base import make_main_menu
 
 from leaflet.managers.wiki import WikiManager
 
@@ -52,7 +54,8 @@ def prepare_main_data(request):
     layout = request.layout_manager.layout
     layout.title = 'Wiki Page'
     layout.header = 'Wiki Page'
-    layout.subheader = ''
+    layout.main_menu = make_main_menu(request)
+    
 
 
 class WikiViewer(BaseViewer):
@@ -68,12 +71,16 @@ class WikiViewer(BaseViewer):
         self.pages = WikiManager(self.request.db)
         self._view = self.route
         prepare_main_data(self.request)
-        menu = self.layout.ctx_menu
+        
+        menu = BaseMenu()
         menu.set_header('Wiki Menu')
         url = self.request.route_url('view_page', pagename='MainPlan')
         menu.append_new_entry('Main Plan', url)
         url = self.request.route_url('list_pages')
         menu.append_new_entry('List Pages', url)
+        self.layout.options_menus = dict(actions=menu)
+        
+        
         getattr(self, self.route)()
         
     def _anchor(self, href, value):

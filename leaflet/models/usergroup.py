@@ -25,9 +25,14 @@ class User(Base):
     active = Column(Boolean, default=True)
     pw = relationship('Password', uselist=False)
     
-    def __init__(self, username):
+    def __init__(self, username=None):
         self.username = username
 
+    def serialize(self):
+        data = dict(id=self.id, username=self.username,
+                    email=self.email, active=self.active)
+        return data
+    
     def __repr__(self):
         return self.username
 
@@ -40,9 +45,12 @@ class UserConfig(Base):
     user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
     text = Column(UnicodeText)
 
-    def __init__(self, user_id, text):
+    def __init__(self, user_id=None, text=None):
         self.user_id = user_id
         self.text = text
+
+    def serialize(self):
+        return dict(user_id=self.user_id, text=self.text)
 
     def get_config(self):
         c = ConfigParser()
@@ -62,29 +70,36 @@ class Password(Base):
     user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
     password = Column(Unicode(150))
 
-    def __init__(self, user_id, password):
+    def __init__(self, user_id=None, password=None):
         self.user_id = user_id
         self.password = password
 
+    def serialize(self):
+        return dict(user_id=self.user_id, password=self.password)
 
 class Group(Base):
     __tablename__ = 'groups'
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(50), unique=True)
 
-    def __init__(self, name):
+    def __init__(self, name=None):
         self.name = name
 
+    def serialize(self):
+        return dict(id=self.id, name=self.name)
 
 class UserGroup(Base):
     __tablename__ = 'group_user'
     group_id = Column(Integer, ForeignKey('groups.id'), primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
 
-    def __init__(self, gid, uid):
+    def __init__(self, gid=None, uid=None):
         self.group_id = gid
         self.user_id = uid
 
+    def serialize(self):
+        return dict(group_id=self.group_id, user_id=self.user_id)
+    
 
 User.groups = relationship(Group, secondary='group_user')
 User.config = relationship(UserConfig, uselist=False, lazy='subquery')
@@ -132,14 +147,17 @@ def populate_usergroups():
 
 
 def populate(admin_username):
+    # populate groups
     try:
         populate_groups()
     except IntegrityError:
         transaction.abort()
+    # populate users
     try:
         populate_users(admin_username)
     except IntegrityError:
         transaction.abort()
+    # add users to groups
     try:
         populate_usergroups()
     except IntegrityError:

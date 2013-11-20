@@ -17,4 +17,13 @@ def configure_admin(config, rootpath='/admin', permission='admin'):
     add_view(config, 'leaflet.views.admin.users.UserManagementViewer',
                'admin_users', permission=permission)
 
+    route = 'admin_site_templates'
+    config.add_route(route, '%s/sitetemplates/{context}/{id}' % rootpath)
+    add_view(config, 'leaflet.views.admin.templatemgr.MainViewer',
+             route, permission=permission)
+    
+    route = 'admin_sitecontent_mgr'
+    config.add_route(route, '%s/sitecontentmgr/{context}/{id}' % rootpath)
+    add_view(config, 'leaflet.views.admin.contentmgr.MainViewer',
+             route, permission=permission)
     
