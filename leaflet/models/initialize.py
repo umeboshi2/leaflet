@@ -20,6 +20,6 @@ def initialize_database(settings):
     populate_groups()
     populate(admin_username)
     try:
-    populate_sitetext()
+        populate_sitetext()
     except IntegrityError:
         transaction.abort()
