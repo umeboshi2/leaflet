@@ -5,7 +5,6 @@ from pyramid_beaker import session_factory_from_settings
 
 from trumpet.config.base import basetemplate, configure_base_layout
 from trumpet.models.sitecontent import SitePath
-from trumpet.managers.admin.siteviews import PyramidConfigManager
 
 from leaflet.security import make_authn_authz_policies, authenticate
 from leaflet.models.base import DBSession, Base
@@ -46,28 +45,6 @@ def main(global_config, **settings):
         from leaflet.models.initialize import IntegrityError
         initialize_database(settings)
     
-        #vmgr = PyramidConfigManager(DBSession)
-        #try:
-        #    vmgr.add_route('view_wiki', '/foowiki')
-        #    vmgr.add_route('list_pages', '/foowiki/listpages')
-        #    vmgr.add_route('view_page', '/foowiki/{pagename}')
-        #    vmgr.add_route('add_page', '/foowiki/add_page/{pagename}')
-        #    vmgr.add_route('edit_page', '/foowiki/{pagename}/edit_page')
-        #    
-        #    wikiview = 'leaflet.views.wiki.WikiViewer'
-        #    vmgr.add_view(vmgr.get_route_id('view_wiki'), wikiview)
-        #    vmgr.add_view(vmgr.get_route_id('list_pages'), wikiview)
-        #    vmgr.add_view(vmgr.get_route_id('view_page'), wikiview)
-        #    vmgr.add_view(vmgr.get_route_id('add_page'), wikiview,
-        #                  permission='wiki_add')
-        #    vmgr.add_view(vmgr.get_route_id('edit_page'), wikiview,
-        #                  permission='wiki_edit')
-        #except IntegrityError:
-        #    import transaction
-        #    transaction.abort()
-        #    
-        
-        
     # setup authn and authz
     secret = settings['%s.authn.secret' % appname]
     cookie = settings['%s.authn.cookie' % appname]
@@ -91,8 +68,7 @@ def main(global_config, **settings):
     config.include(configure_base_layout)
     config.include(configure_admin)
     configure_wiki(config, '/pkg_wiki')
-    #vmgr = PyramidConfigManager(DBSession)
-    #vmgr.configure(config)
+
     config.add_static_view('static',
                            'leaflet:static', cache_max_age=3600)
     ##################################
